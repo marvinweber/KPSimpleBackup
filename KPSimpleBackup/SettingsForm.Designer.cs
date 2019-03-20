@@ -42,6 +42,8 @@
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBoxUseRecycleBin = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -159,7 +161,7 @@
             // checkBoxUseDbName
             // 
             this.checkBoxUseDbName.AutoSize = true;
-            this.checkBoxUseDbName.Location = new System.Drawing.Point(6, 6);
+            this.checkBoxUseDbName.Location = new System.Drawing.Point(6, 28);
             this.checkBoxUseDbName.Name = "checkBoxUseDbName";
             this.checkBoxUseDbName.Size = new System.Drawing.Size(335, 30);
             this.checkBoxUseDbName.TabIndex = 7;
@@ -190,6 +192,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.checkBoxUseRecycleBin);
             this.tabPage2.Controls.Add(this.checkBoxUseDbName);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -199,6 +203,27 @@
             this.tabPage2.Text = "Advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // checkBoxUseRecycleBin
+            // 
+            this.checkBoxUseRecycleBin.AutoSize = true;
+            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(6, 64);
+            this.checkBoxUseRecycleBin.Name = "checkBoxUseRecycleBin";
+            this.checkBoxUseRecycleBin.Size = new System.Drawing.Size(400, 17);
+            this.checkBoxUseRecycleBin.TabIndex = 8;
+            this.checkBoxUseRecycleBin.Text = "Use Recycle Bin (Deleted Backup-Files will stay in recycle bin until you emtpy it" +
+    ")";
+            this.checkBoxUseRecycleBin.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(388, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Only change these settings if you really know what you are doing ;)";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,6 +231,7 @@
             this.ClientSize = new System.Drawing.Size(464, 209);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonSave);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
@@ -239,5 +265,7 @@
         private System.Windows.Forms.TabControl tabControlSettings;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox checkBoxUseRecycleBin;
+        private System.Windows.Forms.Label label3;
     }
 }

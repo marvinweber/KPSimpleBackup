@@ -11,6 +11,7 @@ namespace KPSimpleBackup
         private static readonly String DEFAULT_BACKUP_PATH = "";
         private static readonly long DEFAULT_FILE_AMOUNT_TO_KEEP = 15;
         private static readonly bool DEFAULT_USE_DATABASE_NAMES_FOR_BACKUP_FILES = false;
+        private static readonly bool DEFAULT_USE_RECYCLE_BIN_DELETED_BACKUPS = true;
 
         public KPSimpleBackupConfig(AceCustomConfig customConfig)
         {
@@ -61,6 +62,19 @@ namespace KPSimpleBackup
             set
             {
                 this.customConfig.SetBool("KPSimpleBackupConfig_useDatabaseNameForBackupFiles", value);
+            }
+        }
+
+        public bool UseRecycleBinDeletedBackups
+        {
+            get
+            {
+                return this.customConfig.GetBool("KPSimpleBackupConfig_useRecycleBinDeletedBackups", DEFAULT_USE_RECYCLE_BIN_DELETED_BACKUPS);
+            }
+
+            set
+            {
+                this.customConfig.SetBool("KPSimpleBackupConfig_useRecycleBinDeletedBackups", value);
             }
         }
     }
