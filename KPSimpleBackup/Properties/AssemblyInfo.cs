@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("KPSimpleBackup")]
-[assembly: AssemblyDescription("Simple Plugin for KeePass-Backups (also working together with IOProtocol Plugin)")]
+[assembly: AssemblyDescription("Simple Plugin for KeePass-Backups (working together with IOProtocol Plugin as well!)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Marvin Weber (weberone)")]
+[assembly: AssemblyCompany("Marvin Weber (weberone.de)")]
 [assembly: AssemblyProduct("KeePass Plugin")]
 [assembly: AssemblyCopyright("Copyright © 2019")]
 [assembly: AssemblyTrademark("")]
@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // indem Sie "*" wie unten gezeigt eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
 

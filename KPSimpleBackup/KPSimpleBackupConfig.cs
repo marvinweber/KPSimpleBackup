@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KeePass.App.Configuration;
 
 namespace KPSimpleBackup
@@ -10,6 +6,12 @@ namespace KPSimpleBackup
     public class KPSimpleBackupConfig
     {
         private AceCustomConfig customConfig;
+
+        // default config values
+        private static readonly String DEFAULT_BACKUP_PATH = "";
+        private static readonly long DEFAULT_FILE_AMOUNT_TO_KEEP = 15;
+        private static readonly bool DEFAULT_USE_DATABASE_NAMES_FOR_BACKUP_FILES = false;
+        private static readonly bool DEFAULT_USE_RECYCLE_BIN_DELETED_BACKUPS = true;
 
         public KPSimpleBackupConfig(AceCustomConfig customConfig)
         {
@@ -20,12 +22,7 @@ namespace KPSimpleBackup
         {
             get
             {
-                return this.customConfig.GetBool("KPSimpleBackupConfig_backupConfigured", false);
-            }
-
-            set
-            {
-                this.customConfig.SetBool("KPSimpleBackupConfig_backupConfigured", value);
+                return this.BackupPath != DEFAULT_BACKUP_PATH;
             }
         }
 
@@ -33,7 +30,7 @@ namespace KPSimpleBackup
         {
             get
             {
-                return this.customConfig.GetString("KPSimpleBackupConfig_backupPath");
+                return this.customConfig.GetString("KPSimpleBackupConfig_backupPath", DEFAULT_BACKUP_PATH);
             }
 
             set
@@ -42,16 +39,42 @@ namespace KPSimpleBackup
             }
         }
 
-        public String BackupName
+        public long FileAmountToKeep
         {
             get
             {
-                return this.customConfig.GetString("KPSimpleBackupConfig_backupName", "");
+                return this.customConfig.GetLong("KPSimpleBackupConfig_fileAmountToKeep", DEFAULT_FILE_AMOUNT_TO_KEEP);
             }
 
             set
             {
-                this.customConfig.SetString("KPSimpleBackupConfig_backupName", value);
+                this.customConfig.SetLong("KPSimpleBackupConfig_fileAmountToKeep", value);
+            }
+        }
+
+        public bool UseDatabaseNameForBackupFiles
+        {
+            get
+            {
+                return this.customConfig.GetBool("KPSimpleBackupConfig_useDatabaseNameForBackupFiles", DEFAULT_USE_DATABASE_NAMES_FOR_BACKUP_FILES);
+            }
+
+            set
+            {
+                this.customConfig.SetBool("KPSimpleBackupConfig_useDatabaseNameForBackupFiles", value);
+            }
+        }
+
+        public bool UseRecycleBinDeletedBackups
+        {
+            get
+            {
+                return this.customConfig.GetBool("KPSimpleBackupConfig_useRecycleBinDeletedBackups", DEFAULT_USE_RECYCLE_BIN_DELETED_BACKUPS);
+            }
+
+            set
+            {
+                this.customConfig.SetBool("KPSimpleBackupConfig_useRecycleBinDeletedBackups", value);
             }
         }
     }
