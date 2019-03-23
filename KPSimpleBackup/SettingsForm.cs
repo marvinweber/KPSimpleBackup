@@ -43,6 +43,7 @@ namespace KPSimpleBackup
             this.appConfig.FileAmountToKeep = (long) numericNumberOfBackups.Value;
             this.appConfig.UseDatabaseNameForBackupFiles = checkBoxUseDbName.Checked;
             this.appConfig.UseRecycleBinDeletedBackups = checkBoxUseRecycleBin.Checked;
+            this.appConfig.AutoDatabaseBackup = checkBoxAutoBackup.Checked;
 
             this.Close();
         }
@@ -53,6 +54,7 @@ namespace KPSimpleBackup
             checkBoxUseDbName.Checked = this.appConfig.UseDatabaseNameForBackupFiles;
             numericNumberOfBackups.Value = this.appConfig.FileAmountToKeep;
             checkBoxUseRecycleBin.Checked = this.appConfig.UseRecycleBinDeletedBackups;
+            checkBoxAutoBackup.Checked = this.appConfig.AutoDatabaseBackup;
         }
     }
 }

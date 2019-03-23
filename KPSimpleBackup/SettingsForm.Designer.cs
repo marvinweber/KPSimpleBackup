@@ -44,6 +44,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkBoxUseRecycleBin = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.checkBoxAutoBackup = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -192,6 +193,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBoxAutoBackup);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.checkBoxUseRecycleBin);
             this.tabPage2.Controls.Add(this.checkBoxUseDbName);
@@ -223,6 +225,16 @@
             this.label3.Size = new System.Drawing.Size(388, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Only change these settings if you really know what you are doing ;)";
+            // 
+            // checkBoxAutoBackup
+            // 
+            this.checkBoxAutoBackup.AutoSize = true;
+            this.checkBoxAutoBackup.Location = new System.Drawing.Point(6, 87);
+            this.checkBoxAutoBackup.Name = "checkBoxAutoBackup";
+            this.checkBoxAutoBackup.Size = new System.Drawing.Size(247, 17);
+            this.checkBoxAutoBackup.TabIndex = 10;
+            this.checkBoxAutoBackup.Text = "Auto backup Database (every time you save it)";
+            this.checkBoxAutoBackup.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -267,5 +279,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.CheckBox checkBoxUseRecycleBin;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBoxAutoBackup;
     }
 }

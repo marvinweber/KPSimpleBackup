@@ -82,6 +82,11 @@ namespace KPSimpleBackup
 
         private void OnSaveAction(object sender, FileSavedEventArgs e)
         {
+            // don't create backup if autobackup disabled
+            if (!this.m_config.AutoDatabaseBackup)
+            {
+                return;
+            }
             this.BackupAction(e.Database);
         }
 
