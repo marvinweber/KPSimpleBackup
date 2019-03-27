@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Windows.Forms;
@@ -82,17 +83,21 @@ namespace KPSimpleBackup
 
         private void OnSaveAction(object sender, FileSavedEventArgs e)
         {
-            this.BackupAction(e.Database);
+            // only create backup if auto-backup is enabled
+            if (this.m_config.AutoDatabaseBackup)
+            {
+                this.BackupAction(e.Database);
+            }
         }
 
         private void OnMenuBackupNow(object sender, EventArgs e)
         {
-            // show warning and abort if configuration isn't finished
+            // show warning and return if configuration isn't finished
             if (!this.m_config.BackupConfigured)
             {
                 MessageService.ShowWarning(
-                    "Database cannot be backuped, because configuration is not finished.",
-                    "Goto Tools -> KPSimpleBackup -> Settings and finish configuration!"
+                    "Database backup cannot be created, because the configuration is not finished.",
+                    "Please goto \"Tools -> KPSimpleBackup -> Settings\" and add a backup folder!"
                 );
                 return;
             }
@@ -107,17 +112,23 @@ namespace KPSimpleBackup
                 return;
             }
 
-            string dbBackupFileName = this.GetBackupFileName(database);
-            string time = DateTime.Now.ToString(@"yyyy\.MM\.dd\_H\.mm\.ss");
-            string backupFolderPath = this.m_config.BackupPath;
-            string path = "file:///" + backupFolderPath + dbBackupFileName + "_" + time + ".kdbx";
-            IOConnectionInfo connection = IOConnectionInfo.FromPath(path);
+            List<String> paths = this.m_config.BackupPath;
+            String dateTimeFormat = this.m_config.DateFormat;
+            string time = DateTime.Now.ToString(dateTimeFormat);
 
-            // save database TODO add Logger
-            database.SaveAs(connection, false, null);
+            // Save backup database for each specified path
+            foreach (String backupFolderPath in paths)
+            {
+                string dbBackupFileName = this.GetBackupFileName(database);
+                string path = "file:///" + backupFolderPath + dbBackupFileName + "_" + time + ".kdbx";
+                IOConnectionInfo connection = IOConnectionInfo.FromPath(path);            
+                
+                // save database TODO add Logger
+                database.SaveAs(connection, false, null);
 
-            // Cleanup
-            this.Cleanup(backupFolderPath, dbBackupFileName);
+                // Cleanup
+                this.Cleanup(backupFolderPath, dbBackupFileName);
+            }
         }
 
         private String GetBackupFileName(PwDatabase database)
