@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace KPSimpleBackup
@@ -6,6 +8,7 @@ namespace KPSimpleBackup
     public partial class SettingsForm : Form
     {
         private KPSimpleBackupConfig appConfig;
+        private static readonly String DATE_FORMAT_REGEX = "[^A-Za-z0-9:._+-;]";
 
         public SettingsForm(KPSimpleBackupConfig config)
         {
@@ -17,7 +20,7 @@ namespace KPSimpleBackup
             this.LoadValues();
         }
 
-        private void buttonSelectFolder_Click(object sender, EventArgs e)
+        private void buttonAddFolder_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog objDialog = new FolderBrowserDialog();
             objDialog.Description = "Backup Path";
@@ -32,9 +35,21 @@ namespace KPSimpleBackup
 
                 string newPath = pathSelected + "/";
 
-                this.appConfig.BackupPath = newPath;
-                labelSelectedBackupPath.Text = this.appConfig.BackupPath;
+                // add new path to the list box
+                listBoxBackupPaths.Items.Add(newPath);
             }
+        }
+
+        private void buttonRemoveSelectedFolder_Click(object sender, EventArgs e)
+        {
+            // return if no item is selected
+            if (listBoxBackupPaths.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            // remove item from listBox
+            listBoxBackupPaths.Items.RemoveAt(listBoxBackupPaths.SelectedIndex);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -44,17 +59,67 @@ namespace KPSimpleBackup
             this.appConfig.UseDatabaseNameForBackupFiles = checkBoxUseDbName.Checked;
             this.appConfig.UseRecycleBinDeletedBackups = checkBoxUseRecycleBin.Checked;
             this.appConfig.AutoDatabaseBackup = checkBoxAutoBackup.Checked;
+            this.appConfig.DateFormat = textBoxDateFormat.Text;
+
+            // save paths
+            List<String> paths = new List<String>();
+            foreach (object item in listBoxBackupPaths.Items)
+            {
+                paths.Add((string)item);
+            }
+            this.appConfig.BackupPath = paths;
 
             this.Close();
         }
 
         private void LoadValues()
         {
-            labelSelectedBackupPath.Text = this.appConfig.BackupPath;
             checkBoxUseDbName.Checked = this.appConfig.UseDatabaseNameForBackupFiles;
             numericNumberOfBackups.Value = this.appConfig.FileAmountToKeep;
             checkBoxUseRecycleBin.Checked = this.appConfig.UseRecycleBinDeletedBackups;
             checkBoxAutoBackup.Checked = this.appConfig.AutoDatabaseBackup;
+            textBoxDateFormat.Text = this.appConfig.DateFormat;
+            labelVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.LoadBackupPaths();
+        }
+
+        private void LoadBackupPaths()
+        {
+            // remove all items to prevent duplicate entries in the box
+            listBoxBackupPaths.Items.Clear();
+
+            List<String> paths = this.appConfig.BackupPath;
+
+            foreach(String path in paths)
+            {
+                // skip empty paths
+                if (path != "")
+                {
+                    listBoxBackupPaths.Items.Add(path);
+                }
+            }
+        }
+
+        private void listBoxBackupPaths_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // enable / disable remove button depending on whether a item is selected or not
+            buttonRemoveSelectedFolder.Enabled = listBoxBackupPaths.SelectedIndex != -1;
+        }
+
+        private void buttonDateFormatHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings");
+        }
+
+        private void textBoxDateFormat_TextChanged(object sender, EventArgs e)
+        {
+            // validate date format input (remove invalid characters)
+            textBoxDateFormat.Text = Regex.Replace(textBoxDateFormat.Text, DATE_FORMAT_REGEX, "");
+        }
+
+        private void linkLabelReportBug_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/weberonede/KPSimpleBackup/issues");
         }
     }
 }
