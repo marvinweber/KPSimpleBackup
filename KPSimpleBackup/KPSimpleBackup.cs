@@ -92,12 +92,12 @@ namespace KPSimpleBackup
 
         private void OnMenuBackupNow(object sender, EventArgs e)
         {
-            // show warning and abort if configuration isn't finished
+            // show warning and return if configuration isn't finished
             if (!this.m_config.BackupConfigured)
             {
                 MessageService.ShowWarning(
-                    "Database cannot be backuped, because configuration is not finished.",
-                    "Goto Tools -> KPSimpleBackup -> Settings and finish configuration!"
+                    "Database backup cannot be created, because the configuration is not finished.",
+                    "Please goto \"Tools -> KPSimpleBackup -> Settings\" and add a backup folder!"
                 );
                 return;
             }
