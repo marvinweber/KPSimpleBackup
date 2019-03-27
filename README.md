@@ -8,9 +8,8 @@ This is a really simple KeePass Plugin that will save a backup of your Password-
 
 ## Installation
 Extract the zip-Archive you downloaded from the Release-Page and put either the `KPSimpleBackup.dll` or the `KPSimpleBackup.plgx` file in the `Plugins` folder of your KeePass instllation (portable version should work as well).  
-You also can copy both files to the folder, KeePass will then decide for you which one it'll use ;)
+You also can copy both files to the folder, KeePass will then decide for you which one it'll use ;)  
 From the [KeePass Website](https://keepass.info/help/v2_dev/plg_index.html):  
-
 > Dual package. You can ship a plugin both as a DLL and as a PLGX in one package (e.g. 'SecretImporter.dll' and 'SecretImporter.plgx' within one folder). KeePass will load the most appropriate file (if KeePass has been signed with the official assembly signing key, it will load the DLL, otherwise the PLGX). If KeePass loads the DLL, the PLGX is ignored, which especially means that only a weak compatibility check is performed (i.e. the strong compatibility detection ensured by the PLGX is lost). So, a dual package inherits the DLL disadvantages and is not the "best" solution either.
 
 ## Setup
