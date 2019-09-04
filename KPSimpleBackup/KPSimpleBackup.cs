@@ -41,7 +41,7 @@ namespace KPSimpleBackup
         {
             get
             {
-                return "https://raw.githubusercontent.com/weberonede/KPSimpleBackup/master/kpsimplebackup.version";
+                return "https://raw.githubusercontent.com/marvinweber/KPSimpleBackup/master/kpsimplebackup.version";
             }
         }
 
@@ -116,7 +116,7 @@ namespace KPSimpleBackup
             String dateTimeFormat = this.m_config.DateFormat;
             string time = DateTime.Now.ToString(dateTimeFormat);
 
-            // Save backup database for each specified path
+            // Save backup database for each specified path and perform cleanup
             foreach (String backupFolderPath in paths)
             {
                 string dbBackupFileName = this.GetBackupFileName(database);
@@ -127,7 +127,7 @@ namespace KPSimpleBackup
                 database.SaveAs(connection, false, null);
 
                 // Cleanup
-                this.Cleanup(backupFolderPath, dbBackupFileName);
+                this.Cleanup(backupFolderPath, dbBackupFileName, database.IOConnectionInfo.Path);
             }
         }
 
@@ -146,13 +146,13 @@ namespace KPSimpleBackup
             return backupFileName;
         }
 
-        private void Cleanup(String path, String fileNamePrefix)
+        private void Cleanup(String path, String fileNamePrefix, String originalDatabasePath)
         {
-            int filesToKeepAmount = (int)this.m_config.FileAmountToKeep;
-            // read from settings wether to use recycle bin or delete files permanently
+            int filesToKeepAmount = (int) this.m_config.FileAmountToKeep;
+            // read from settings whether to use recycle bin or delete files permanently
             var recycleOption = this.m_config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
 
-            String searchPattern = fileNamePrefix + "*" + ".kdbx";
+            String searchPattern = fileNamePrefix + "_*.kdbx";
             String[] fileList = Directory.GetFiles(path, searchPattern).OrderBy(f => f).Reverse().ToArray();
 
             // if more backup files available than needed loop through the unnecessary ones and remove them
@@ -160,6 +160,12 @@ namespace KPSimpleBackup
             {
                 for (int i = filesToKeepAmount; i < fileList.Count(); i++)
                 {
+                    // never delete original file -> always skip it (in case it made it in the filelist)
+                    if (fileList[i].Equals(originalDatabasePath))
+                    {
+                        continue;
+                    }
+
                     FileSystem.DeleteFile(fileList[i], UIOption.OnlyErrorDialogs, recycleOption);
                 }
             }
