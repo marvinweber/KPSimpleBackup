@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.LinkLabel linkLabelRessourcesOokiDialogsWebsite;
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,6 +54,10 @@
             this.linkLabelReportBug = new System.Windows.Forms.LinkLabel();
             this.labelVersion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.linkLabelRessourcesOokiDialogsGitHub = new System.Windows.Forms.LinkLabel();
+            linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumberOfBackups)).BeginInit();
@@ -295,6 +300,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(linkLabelRessourcesOokiDialogsWebsite);
+            this.tabPage3.Controls.Add(this.linkLabelRessourcesOokiDialogsGitHub);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.linkLabelReportBug);
             this.tabPage3.Controls.Add(this.labelVersion);
             this.tabPage3.Controls.Add(this.label4);
@@ -310,7 +319,7 @@
             this.linkLabelReportBug.ActiveLinkColor = System.Drawing.Color.DarkRed;
             this.linkLabelReportBug.AutoSize = true;
             this.linkLabelReportBug.LinkColor = System.Drawing.Color.DarkRed;
-            this.linkLabelReportBug.Location = new System.Drawing.Point(8, 77);
+            this.linkLabelReportBug.Location = new System.Drawing.Point(8, 64);
             this.linkLabelReportBug.Name = "linkLabelReportBug";
             this.linkLabelReportBug.Size = new System.Drawing.Size(61, 13);
             this.linkLabelReportBug.TabIndex = 2;
@@ -337,6 +346,54 @@
             this.label4.Size = new System.Drawing.Size(191, 25);
             this.label4.TabIndex = 0;
             this.label4.Text = "KPSimpleBackup";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(6, 119);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(389, 20);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Open source software used in KPSimpleBackup";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(7, 149);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(435, 17);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Ookii.Dialogs.WinForms - Copyright (c) Sven Groot (Ookii.org) 2009";
+            // 
+            // linkLabelRessourcesOokiDialogsGitHub
+            // 
+            this.linkLabelRessourcesOokiDialogsGitHub.ActiveLinkColor = System.Drawing.Color.DarkRed;
+            this.linkLabelRessourcesOokiDialogsGitHub.AutoSize = true;
+            this.linkLabelRessourcesOokiDialogsGitHub.LinkColor = System.Drawing.Color.DarkRed;
+            this.linkLabelRessourcesOokiDialogsGitHub.Location = new System.Drawing.Point(8, 166);
+            this.linkLabelRessourcesOokiDialogsGitHub.Name = "linkLabelRessourcesOokiDialogsGitHub";
+            this.linkLabelRessourcesOokiDialogsGitHub.Size = new System.Drawing.Size(40, 13);
+            this.linkLabelRessourcesOokiDialogsGitHub.TabIndex = 5;
+            this.linkLabelRessourcesOokiDialogsGitHub.TabStop = true;
+            this.linkLabelRessourcesOokiDialogsGitHub.Text = "GitHub";
+            this.linkLabelRessourcesOokiDialogsGitHub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelRessourcesOokiDialogsGitHub_LinkClicked);
+            // 
+            // linkLabelRessourcesOokiDialogsWebsite
+            // 
+            linkLabelRessourcesOokiDialogsWebsite.ActiveLinkColor = System.Drawing.Color.DarkRed;
+            linkLabelRessourcesOokiDialogsWebsite.AutoSize = true;
+            linkLabelRessourcesOokiDialogsWebsite.LinkColor = System.Drawing.Color.DarkRed;
+            linkLabelRessourcesOokiDialogsWebsite.Location = new System.Drawing.Point(54, 166);
+            linkLabelRessourcesOokiDialogsWebsite.Name = "linkLabelRessourcesOokiDialogsWebsite";
+            linkLabelRessourcesOokiDialogsWebsite.Size = new System.Drawing.Size(46, 13);
+            linkLabelRessourcesOokiDialogsWebsite.TabIndex = 6;
+            linkLabelRessourcesOokiDialogsWebsite.TabStop = true;
+            linkLabelRessourcesOokiDialogsWebsite.Text = "Website";
+            linkLabelRessourcesOokiDialogsWebsite.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LinkLabelRessourcesOokiDialogsWebsite_MouseClick);
             // 
             // SettingsForm
             // 
@@ -394,5 +451,8 @@
         private System.Windows.Forms.Button buttonDateFormatHelp;
         private System.Windows.Forms.TextBox textBoxDateFormat;
         private System.Windows.Forms.LinkLabel linkLabelReportBug;
+        private System.Windows.Forms.LinkLabel linkLabelRessourcesOokiDialogsGitHub;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }

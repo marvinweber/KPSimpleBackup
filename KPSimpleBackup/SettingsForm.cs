@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ookii.Dialogs.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -22,13 +23,13 @@ namespace KPSimpleBackup
 
         private void buttonAddFolder_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog objDialog = new FolderBrowserDialog();
-            objDialog.Description = "Backup Path";
-            objDialog.SelectedPath = @"C:\";
-            DialogResult objResult = objDialog.ShowDialog(this);
-            if (objResult == DialogResult.OK)
+            VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog();
+            dialog.Description = "Select a backup folder";
+            dialog.UseDescriptionForTitle = true;
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                string pathSelected = objDialog.SelectedPath;
+                string pathSelected = dialog.SelectedPath;
 
                 // replace backslash (windows-specific) with slash
                 pathSelected = pathSelected.Replace("\\", "/");
@@ -120,6 +121,16 @@ namespace KPSimpleBackup
         private void linkLabelReportBug_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/weberonede/KPSimpleBackup/issues");
+        }
+
+        private void LinkLabelRessourcesOokiDialogsWebsite_MouseClick(object sender, MouseEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.ookii.org/Software/Dialogs/");
+        }
+
+        private void LinkLabelRessourcesOokiDialogsGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/caioproiete/ookii-dialogs-winforms");
         }
     }
 }

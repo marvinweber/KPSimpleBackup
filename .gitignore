@@ -1,3 +1,6 @@
 .vs
 /KPSimpleBackup/bin
 /KPSimpleBackup/obj
+
+# NuGet packages folder
+/packages
