@@ -60,6 +60,18 @@ namespace KPSimpleBackup
             this.appConfig.UseDatabaseNameForBackupFiles = checkBoxUseDbName.Checked;
             this.appConfig.UseRecycleBinDeletedBackups = checkBoxUseRecycleBin.Checked;
             this.appConfig.AutoDatabaseBackup = checkBoxAutoBackup.Checked;
+
+            // custom file extension
+            this.appConfig.UseCustomBackupFileExtension = checkBoxCustomFileEnding.Checked;
+            string backupFileExtension = textBoxBackupFileEnding.Text;
+            // add prepending point at beginning of file-extension if not set by user
+            if (backupFileExtension.ToCharArray()[0] != '.')
+            {
+                backupFileExtension = "." + backupFileExtension;
+            }
+            this.appConfig.BackupFileExtension = backupFileExtension;
+
+            // date format
             this.appConfig.DateFormat = textBoxDateFormat.Text;
 
             // save paths
@@ -79,7 +91,16 @@ namespace KPSimpleBackup
             numericNumberOfBackups.Value = this.appConfig.FileAmountToKeep;
             checkBoxUseRecycleBin.Checked = this.appConfig.UseRecycleBinDeletedBackups;
             checkBoxAutoBackup.Checked = this.appConfig.AutoDatabaseBackup;
+
+            // custom file extension checkbox & text box
+            checkBoxCustomFileEnding.Checked = this.appConfig.UseCustomBackupFileExtension;
+            textBoxBackupFileEnding.Text = this.appConfig.BackupFileExtension;
+            textBoxBackupFileEnding.Enabled = this.appConfig.UseCustomBackupFileExtension;
+
+            // date format
             textBoxDateFormat.Text = this.appConfig.DateFormat;
+
+            // version label
             labelVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.LoadBackupPaths();
         }
@@ -131,6 +152,15 @@ namespace KPSimpleBackup
         private void LinkLabelRessourcesOokiDialogsGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/caioproiete/ookii-dialogs-winforms");
+        }
+
+        private void CheckBoxCustomFileEnding_CheckedChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.CheckBox checkbox = sender as System.Windows.Forms.CheckBox;
+            if (checkbox != null)
+            {
+                textBoxBackupFileEnding.Enabled = checkbox.Checked;
+            }
         }
     }
 }

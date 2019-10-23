@@ -112,6 +112,18 @@ namespace KPSimpleBackup
                 return;
             }
 
+            // Get extension/ fileending for the database backup-file
+            string databaseExtension = KPSimpleBackupConfig.DEFAULT_BACKUP_FILE_EXTENSION;
+            if (this.m_config.UseCustomBackupFileExtension)
+            {
+                databaseExtension = this.m_config.BackupFileExtension;
+            }
+            else
+            {
+                string databasePath = database.IOConnectionInfo.Path;
+                databaseExtension = Path.GetExtension(databasePath);
+            }
+
             List<String> paths = this.m_config.BackupPath;
             String dateTimeFormat = this.m_config.DateFormat;
             string time = DateTime.Now.ToString(dateTimeFormat);
@@ -120,8 +132,8 @@ namespace KPSimpleBackup
             foreach (String backupFolderPath in paths)
             {
                 string dbBackupFileName = this.GetBackupFileName(database);
-                string path = "file:///" + backupFolderPath + dbBackupFileName + "_" + time + ".kdbx";
-                IOConnectionInfo connection = IOConnectionInfo.FromPath(path);            
+                string path = "file:///" + backupFolderPath + dbBackupFileName + "_" + time + databaseExtension;
+                IOConnectionInfo connection = IOConnectionInfo.FromPath(path);
                 
                 // save database TODO add Logger
                 database.SaveAs(connection, false, null);

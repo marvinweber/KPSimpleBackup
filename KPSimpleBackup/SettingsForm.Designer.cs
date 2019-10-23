@@ -57,6 +57,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.linkLabelRessourcesOokiDialogsGitHub = new System.Windows.Forms.LinkLabel();
+            this.checkBoxCustomFileEnding = new System.Windows.Forms.CheckBox();
+            this.textBoxBackupFileEnding = new System.Windows.Forms.TextBox();
             linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -255,6 +257,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.textBoxBackupFileEnding);
+            this.tabPage2.Controls.Add(this.checkBoxCustomFileEnding);
             this.tabPage2.Controls.Add(this.checkBoxAutoBackup);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.checkBoxUseRecycleBin);
@@ -395,6 +399,24 @@
             linkLabelRessourcesOokiDialogsWebsite.Text = "Website";
             linkLabelRessourcesOokiDialogsWebsite.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LinkLabelRessourcesOokiDialogsWebsite_MouseClick);
             // 
+            // checkBoxCustomFileEnding
+            // 
+            this.checkBoxCustomFileEnding.AutoSize = true;
+            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(6, 110);
+            this.checkBoxCustomFileEnding.Name = "checkBoxCustomFileEnding";
+            this.checkBoxCustomFileEnding.Size = new System.Drawing.Size(240, 17);
+            this.checkBoxCustomFileEnding.TabIndex = 11;
+            this.checkBoxCustomFileEnding.Text = "Always use custom file-ending for backup-file:";
+            this.checkBoxCustomFileEnding.UseVisualStyleBackColor = true;
+            this.checkBoxCustomFileEnding.CheckedChanged += new System.EventHandler(this.CheckBoxCustomFileEnding_CheckedChanged);
+            // 
+            // textBoxBackupFileEnding
+            // 
+            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(252, 107);
+            this.textBoxBackupFileEnding.Name = "textBoxBackupFileEnding";
+            this.textBoxBackupFileEnding.Size = new System.Drawing.Size(166, 20);
+            this.textBoxBackupFileEnding.TabIndex = 12;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -454,5 +476,7 @@
         private System.Windows.Forms.LinkLabel linkLabelRessourcesOokiDialogsGitHub;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxBackupFileEnding;
+        private System.Windows.Forms.CheckBox checkBoxCustomFileEnding;
     }
 }
