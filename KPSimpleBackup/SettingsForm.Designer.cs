@@ -59,6 +59,7 @@
             this.linkLabelRessourcesOokiDialogsGitHub = new System.Windows.Forms.LinkLabel();
             this.checkBoxCustomFileEnding = new System.Windows.Forms.CheckBox();
             this.textBoxBackupFileEnding = new System.Windows.Forms.TextBox();
+            this.checkBoxBackupOnDbClose = new System.Windows.Forms.CheckBox();
             linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -257,6 +258,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBoxBackupOnDbClose);
             this.tabPage2.Controls.Add(this.textBoxBackupFileEnding);
             this.tabPage2.Controls.Add(this.checkBoxCustomFileEnding);
             this.tabPage2.Controls.Add(this.checkBoxAutoBackup);
@@ -402,7 +404,7 @@
             // checkBoxCustomFileEnding
             // 
             this.checkBoxCustomFileEnding.AutoSize = true;
-            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(6, 110);
+            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(6, 133);
             this.checkBoxCustomFileEnding.Name = "checkBoxCustomFileEnding";
             this.checkBoxCustomFileEnding.Size = new System.Drawing.Size(240, 17);
             this.checkBoxCustomFileEnding.TabIndex = 11;
@@ -412,10 +414,21 @@
             // 
             // textBoxBackupFileEnding
             // 
-            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(252, 107);
+            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(252, 130);
             this.textBoxBackupFileEnding.Name = "textBoxBackupFileEnding";
             this.textBoxBackupFileEnding.Size = new System.Drawing.Size(166, 20);
             this.textBoxBackupFileEnding.TabIndex = 12;
+            // 
+            // checkBoxBackupOnDbClose
+            // 
+            this.checkBoxBackupOnDbClose.AutoSize = true;
+            this.checkBoxBackupOnDbClose.Location = new System.Drawing.Point(6, 110);
+            this.checkBoxBackupOnDbClose.Name = "checkBoxBackupOnDbClose";
+            this.checkBoxBackupOnDbClose.Size = new System.Drawing.Size(450, 17);
+            this.checkBoxBackupOnDbClose.TabIndex = 13;
+            this.checkBoxBackupOnDbClose.Text = "Backup Database when it\'s being closed or when the KeePass application is being c" +
+    "losed";
+            this.checkBoxBackupOnDbClose.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -478,5 +491,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxBackupFileEnding;
         private System.Windows.Forms.CheckBox checkBoxCustomFileEnding;
+        private System.Windows.Forms.CheckBox checkBoxBackupOnDbClose;
     }
 }

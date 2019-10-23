@@ -15,6 +15,7 @@ namespace KPSimpleBackup
         private static readonly bool DEFAULT_USE_DATABASE_NAMES_FOR_BACKUP_FILES = false;
         private static readonly bool DEFAULT_USE_RECYCLE_BIN_DELETED_BACKUPS = true;
         private static readonly bool DEFAULT_AUTO_BACKUP_DATABASE = true;
+        private static readonly bool DEFAULT_BACKUP_ON_DB_CLOSE = false;
         private static readonly string DEFAULT_DATE_FORMAT = "yyyy.MM.dd_H.mm.ss";
         private static readonly String EMPTY_STRING = "";
         private static readonly char PATH_SEPERATOR = ';';
@@ -123,6 +124,19 @@ namespace KPSimpleBackup
             set
             {
                 this.customConfig.SetBool("KPSimpleBackupConfig_autoDatabaseBackup", value);
+            }
+        }
+
+        public bool BackupOnDbClose
+        {
+            get
+            {
+                return this.customConfig.GetBool("KPSimpleBackupConfig_backupOnDbClose", DEFAULT_BACKUP_ON_DB_CLOSE);
+            }
+
+            set
+            {
+                this.customConfig.SetBool("KPSimpleBackupConfig_backupOnDbClose", value);
             }
         }
 

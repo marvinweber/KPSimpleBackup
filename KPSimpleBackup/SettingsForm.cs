@@ -59,7 +59,10 @@ namespace KPSimpleBackup
             this.appConfig.FileAmountToKeep = (long) numericNumberOfBackups.Value;
             this.appConfig.UseDatabaseNameForBackupFiles = checkBoxUseDbName.Checked;
             this.appConfig.UseRecycleBinDeletedBackups = checkBoxUseRecycleBin.Checked;
+
+            // auto backup and backup on database close
             this.appConfig.AutoDatabaseBackup = checkBoxAutoBackup.Checked;
+            this.appConfig.BackupOnDbClose = checkBoxBackupOnDbClose.Checked;
 
             // custom file extension
             this.appConfig.UseCustomBackupFileExtension = checkBoxCustomFileEnding.Checked;
@@ -90,7 +93,10 @@ namespace KPSimpleBackup
             checkBoxUseDbName.Checked = this.appConfig.UseDatabaseNameForBackupFiles;
             numericNumberOfBackups.Value = this.appConfig.FileAmountToKeep;
             checkBoxUseRecycleBin.Checked = this.appConfig.UseRecycleBinDeletedBackups;
+
+            // auto backup and backup on database close
             checkBoxAutoBackup.Checked = this.appConfig.AutoDatabaseBackup;
+            checkBoxBackupOnDbClose.Checked = this.appConfig.BackupOnDbClose;
 
             // custom file extension checkbox & text box
             checkBoxCustomFileEnding.Checked = this.appConfig.UseCustomBackupFileExtension;

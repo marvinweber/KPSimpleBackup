@@ -24,8 +24,9 @@ namespace KPSimpleBackup
             m_host = host;
             m_config = new KPSimpleBackupConfig(m_host.CustomConfig);
 
-            // add backup action event handler
-            m_host.MainWindow.FileSaved += this.OnSaveAction;
+            // add backup action event handlers for when db is being saved and closed
+            m_host.MainWindow.FileSaved += this.OnDatabaseSaveAction;
+            m_host.MainWindow.FileClosingPre += this.OnDatabaseCloseAction;
 
             // initialization successful
             return true;
@@ -34,7 +35,8 @@ namespace KPSimpleBackup
         public override void Terminate()
         {
             // Remove event handler
-            m_host.MainWindow.FileSaved -= this.OnSaveAction;
+            m_host.MainWindow.FileSaved -= this.OnDatabaseSaveAction;
+            m_host.MainWindow.FileClosingPost -= this.OnDatabaseCloseAction;
         }
 
         public override string UpdateUrl
@@ -81,10 +83,18 @@ namespace KPSimpleBackup
             settingsWindow = null;
         } 
 
-        private void OnSaveAction(object sender, FileSavedEventArgs e)
+        private void OnDatabaseSaveAction(object sender, FileSavedEventArgs e)
         {
             // only create backup if auto-backup is enabled
             if (this.m_config.AutoDatabaseBackup)
+            {
+                this.BackupAction(e.Database);
+            }
+        }
+
+        private void OnDatabaseCloseAction(object sender, FileClosingEventArgs e)
+        {
+            if (this.m_config.BackupOnDbClose)
             {
                 this.BackupAction(e.Database);
             }
