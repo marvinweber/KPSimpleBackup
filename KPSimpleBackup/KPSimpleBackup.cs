@@ -14,6 +14,8 @@ namespace KPSimpleBackup
 {
     public sealed class KPSimpleBackupExt : Plugin
     {
+        private const string FILE_PREFIX = "file:///";
+
         private IPluginHost m_host = null;
         private KPSimpleBackupConfig m_config = null;
 
@@ -142,13 +144,14 @@ namespace KPSimpleBackup
             foreach (String backupFolderPath in paths)
             {
                 string dbBackupFileName = this.GetBackupFileName(database);
-                string path = "file:///" + backupFolderPath + dbBackupFileName + "_" + time + databaseExtension;
+                string path = FILE_PREFIX + backupFolderPath + dbBackupFileName + "_" + time + databaseExtension;
                 IOConnectionInfo connection = IOConnectionInfo.FromPath(path);
                 
                 // save database TODO add Logger
                 database.SaveAs(connection, false, null);
 
                 // Cleanup
+                string cleanupSearchPattern = dbBackupFileName + "_*" + databaseExtension;
                 this.Cleanup(backupFolderPath, dbBackupFileName, database.IOConnectionInfo.Path);
 
                 // perform long term backup if enabled in settings
@@ -175,13 +178,12 @@ namespace KPSimpleBackup
             return backupFileName;
         }
 
-        private void Cleanup(String path, String fileNamePrefix, String originalDatabasePath)
+        private void Cleanup(String path, String searchPattern, String originalDatabasePath)
         {
             int filesToKeepAmount = (int) this.m_config.FileAmountToKeep;
             // read from settings whether to use recycle bin or delete files permanently
             var recycleOption = this.m_config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
 
-            String searchPattern = fileNamePrefix + "_*.kdbx";
             String[] fileList = Directory.GetFiles(path, searchPattern).OrderBy(f => f).Reverse().ToArray();
 
             // if more backup files available than needed loop through the unnecessary ones and remove them
