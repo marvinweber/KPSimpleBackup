@@ -150,6 +150,13 @@ namespace KPSimpleBackup
 
                 // Cleanup
                 this.Cleanup(backupFolderPath, dbBackupFileName, database.IOConnectionInfo.Path);
+
+                // perform long term backup if enabled in settings
+                if (this.m_config.UseLongTermBackup)
+                {
+                    LongTermBackupManager ltbManager = new LongTermBackupManager(backupFolderPath, dbBackupFileName, databaseExtension, database, m_config);
+                    ltbManager.RunLtb();
+                }
             }
         }
 

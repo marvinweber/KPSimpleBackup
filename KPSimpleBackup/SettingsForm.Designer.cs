@@ -60,6 +60,7 @@
             this.checkBoxCustomFileEnding = new System.Windows.Forms.CheckBox();
             this.textBoxBackupFileEnding = new System.Windows.Forms.TextBox();
             this.checkBoxBackupOnDbClose = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableLongTermBackups = new System.Windows.Forms.CheckBox();
             linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -258,6 +259,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBoxEnableLongTermBackups);
             this.tabPage2.Controls.Add(this.checkBoxBackupOnDbClose);
             this.tabPage2.Controls.Add(this.textBoxBackupFileEnding);
             this.tabPage2.Controls.Add(this.checkBoxCustomFileEnding);
@@ -430,6 +432,18 @@
     "losed";
             this.checkBoxBackupOnDbClose.UseVisualStyleBackColor = true;
             // 
+            // checkBoxEnableLongTermBackups
+            // 
+            this.checkBoxEnableLongTermBackups.AutoSize = true;
+            this.checkBoxEnableLongTermBackups.Location = new System.Drawing.Point(6, 156);
+            this.checkBoxEnableLongTermBackups.Name = "checkBoxEnableLongTermBackups";
+            this.checkBoxEnableLongTermBackups.Size = new System.Drawing.Size(472, 30);
+            this.checkBoxEnableLongTermBackups.TabIndex = 14;
+            this.checkBoxEnableLongTermBackups.Text = "Enable long term backups (a folder will be created inside your backup location(s)" +
+    " where yearly, \r\nmonthly (of the last 12 months) and weekly (last 4 weeks) backu" +
+    "ps will be stored)";
+            this.checkBoxEnableLongTermBackups.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -492,5 +506,6 @@
         private System.Windows.Forms.TextBox textBoxBackupFileEnding;
         private System.Windows.Forms.CheckBox checkBoxCustomFileEnding;
         private System.Windows.Forms.CheckBox checkBoxBackupOnDbClose;
+        private System.Windows.Forms.CheckBox checkBoxEnableLongTermBackups;
     }
 }

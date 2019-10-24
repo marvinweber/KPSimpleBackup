@@ -74,6 +74,9 @@ namespace KPSimpleBackup
             }
             this.appConfig.BackupFileExtension = backupFileExtension;
 
+            // long term backups
+            this.appConfig.UseLongTermBackup = checkBoxEnableLongTermBackups.Checked;
+
             // date format
             this.appConfig.DateFormat = textBoxDateFormat.Text;
 
@@ -102,6 +105,9 @@ namespace KPSimpleBackup
             checkBoxCustomFileEnding.Checked = this.appConfig.UseCustomBackupFileExtension;
             textBoxBackupFileEnding.Text = this.appConfig.BackupFileExtension;
             textBoxBackupFileEnding.Enabled = this.appConfig.UseCustomBackupFileExtension;
+
+            // long term backups
+            checkBoxEnableLongTermBackups.Checked = this.appConfig.UseLongTermBackup;
 
             // date format
             textBoxDateFormat.Text = this.appConfig.DateFormat;
