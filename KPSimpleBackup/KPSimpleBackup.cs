@@ -94,7 +94,7 @@ namespace KPSimpleBackup
 
         private void OnDatabaseCloseAction(object sender, FileClosingEventArgs e)
         {
-            if (this.m_config.BackupOnDbClose)
+            if (this.m_config.BackupOnDbClose && e.Database.IsOpen)
             {
                 this.BackupAction(e.Database);
             }
