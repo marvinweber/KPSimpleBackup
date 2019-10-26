@@ -152,7 +152,7 @@ namespace KPSimpleBackup
 
                 // Cleanup
                 string cleanupSearchPattern = dbBackupFileName + "_*" + databaseExtension;
-                this.Cleanup(backupFolderPath, dbBackupFileName, database.IOConnectionInfo.Path);
+                this.Cleanup(backupFolderPath, cleanupSearchPattern, database.IOConnectionInfo.Path);
 
                 // perform long term backup if enabled in settings
                 if (this.m_config.UseLongTermBackup)
