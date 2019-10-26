@@ -120,4 +120,9 @@
   <metadata name="linkLabelRessourcesOokiDialogsWebsite.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>False</value>
   </metadata>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Long-Term-Backups (LTB-Backups) can be used to keep a longer history of backup files. If enabled - weekly, monthly and yearly
+backups will be kept (separatley to the standard backup files). Only one backup-file per week/ month/ year will be kept. 
+LTB-Backups are stored in a subfolder in all your backup locations.</value>
+  </data>
 </root>
