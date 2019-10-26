@@ -247,10 +247,10 @@
             this.checkBoxUseDbName.AutoSize = true;
             this.checkBoxUseDbName.Location = new System.Drawing.Point(10, 66);
             this.checkBoxUseDbName.Name = "checkBoxUseDbName";
-            this.checkBoxUseDbName.Size = new System.Drawing.Size(335, 30);
+            this.checkBoxUseDbName.Size = new System.Drawing.Size(483, 17);
             this.checkBoxUseDbName.TabIndex = 7;
-            this.checkBoxUseDbName.Text = "Use Database-Name (File -> Database-Settings -> Name) instead \r\nof File-Name (Def" +
-    "ault) for Backup-File-Names";
+            this.checkBoxUseDbName.Text = "Use database name (File -> Database-Settings -> Name) instead of file name as bac" +
+    "kup file name";
             this.checkBoxUseDbName.UseVisualStyleBackColor = true;
             // 
             // tabControlSettings
@@ -300,17 +300,17 @@
             // checkBoxEnableLongTermBackups
             // 
             this.checkBoxEnableLongTermBackups.AutoSize = true;
-            this.checkBoxEnableLongTermBackups.Location = new System.Drawing.Point(10, 320);
+            this.checkBoxEnableLongTermBackups.Location = new System.Drawing.Point(10, 306);
             this.checkBoxEnableLongTermBackups.Name = "checkBoxEnableLongTermBackups";
-            this.checkBoxEnableLongTermBackups.Size = new System.Drawing.Size(161, 17);
+            this.checkBoxEnableLongTermBackups.Size = new System.Drawing.Size(158, 17);
             this.checkBoxEnableLongTermBackups.TabIndex = 14;
-            this.checkBoxEnableLongTermBackups.Text = "Enable Long-Term-Backups.";
+            this.checkBoxEnableLongTermBackups.Text = "Enable Long-Term-Backups";
             this.checkBoxEnableLongTermBackups.UseVisualStyleBackColor = true;
             // 
             // checkBoxBackupOnDbClose
             // 
             this.checkBoxBackupOnDbClose.AutoSize = true;
-            this.checkBoxBackupOnDbClose.Location = new System.Drawing.Point(10, 209);
+            this.checkBoxBackupOnDbClose.Location = new System.Drawing.Point(10, 195);
             this.checkBoxBackupOnDbClose.Name = "checkBoxBackupOnDbClose";
             this.checkBoxBackupOnDbClose.Size = new System.Drawing.Size(450, 17);
             this.checkBoxBackupOnDbClose.TabIndex = 13;
@@ -320,30 +320,31 @@
             // 
             // textBoxBackupFileEnding
             // 
-            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(254, 183);
+            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(315, 169);
             this.textBoxBackupFileEnding.Name = "textBoxBackupFileEnding";
-            this.textBoxBackupFileEnding.Size = new System.Drawing.Size(166, 20);
+            this.textBoxBackupFileEnding.Size = new System.Drawing.Size(145, 20);
             this.textBoxBackupFileEnding.TabIndex = 12;
             // 
             // checkBoxCustomFileEnding
             // 
             this.checkBoxCustomFileEnding.AutoSize = true;
-            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(10, 186);
+            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(10, 172);
             this.checkBoxCustomFileEnding.Name = "checkBoxCustomFileEnding";
-            this.checkBoxCustomFileEnding.Size = new System.Drawing.Size(240, 17);
+            this.checkBoxCustomFileEnding.Size = new System.Drawing.Size(299, 17);
             this.checkBoxCustomFileEnding.TabIndex = 11;
-            this.checkBoxCustomFileEnding.Text = "Always use custom file-ending for backup-file:";
+            this.checkBoxCustomFileEnding.Text = "Always use custom file-ending (extension) for backup-files:";
             this.checkBoxCustomFileEnding.UseVisualStyleBackColor = true;
             this.checkBoxCustomFileEnding.CheckedChanged += new System.EventHandler(this.CheckBoxCustomFileEnding_CheckedChanged);
             // 
             // checkBoxAutoBackup
             // 
             this.checkBoxAutoBackup.AutoSize = true;
-            this.checkBoxAutoBackup.Location = new System.Drawing.Point(10, 125);
+            this.checkBoxAutoBackup.Location = new System.Drawing.Point(10, 112);
             this.checkBoxAutoBackup.Name = "checkBoxAutoBackup";
-            this.checkBoxAutoBackup.Size = new System.Drawing.Size(247, 17);
+            this.checkBoxAutoBackup.Size = new System.Drawing.Size(431, 17);
             this.checkBoxAutoBackup.TabIndex = 10;
-            this.checkBoxAutoBackup.Text = "Auto backup Database (every time you save it)";
+            this.checkBoxAutoBackup.Text = "Auto-Backup Database (backup will be created, everytime the dabase is being saved" +
+    ")";
             this.checkBoxAutoBackup.UseVisualStyleBackColor = true;
             // 
             // label3
@@ -359,12 +360,12 @@
             // checkBoxUseRecycleBin
             // 
             this.checkBoxUseRecycleBin.AutoSize = true;
-            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(10, 102);
+            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(10, 89);
             this.checkBoxUseRecycleBin.Name = "checkBoxUseRecycleBin";
-            this.checkBoxUseRecycleBin.Size = new System.Drawing.Size(400, 17);
+            this.checkBoxUseRecycleBin.Size = new System.Drawing.Size(491, 17);
             this.checkBoxUseRecycleBin.TabIndex = 8;
-            this.checkBoxUseRecycleBin.Text = "Use Recycle Bin (Deleted Backup-Files will stay in recycle bin until you emtpy it" +
-    ")";
+            this.checkBoxUseRecycleBin.Text = "Use Recycle Bin (instead of completeley removing old backup files, they will be m" +
+    "oved to the trash)";
             this.checkBoxUseRecycleBin.UseVisualStyleBackColor = true;
             // 
             // tabPage3
@@ -465,7 +466,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(6, 163);
+            this.label9.Location = new System.Drawing.Point(6, 149);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(221, 20);
             this.label9.TabIndex = 16;
@@ -475,7 +476,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 252);
+            this.label10.Location = new System.Drawing.Point(6, 235);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(170, 20);
             this.label10.TabIndex = 17;
@@ -485,7 +486,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(7, 272);
+            this.label11.Location = new System.Drawing.Point(9, 259);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(612, 39);
             this.label11.TabIndex = 18;
