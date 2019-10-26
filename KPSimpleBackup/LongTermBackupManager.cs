@@ -31,6 +31,8 @@ namespace KPSimpleBackup
         private string basePathMonthly;
         private string basePathYearly;
 
+        private KeePassLib.Interfaces.IStatusLogger logger = null;
+
         public LongTermBackupManager(string basePath, string dbFileName, string dbFileExtension, PwDatabase database, KPSimpleBackupConfig config)
         {
             this.basePath = basePath;
@@ -51,6 +53,11 @@ namespace KPSimpleBackup
             this.EnsureLtbFolderStructure();
             this.CreateBackupFiles();
             this.CleanupLtbFolders();
+        }
+
+        public void SetLogger(KeePassLib.Interfaces.IStatusLogger logger)
+        {
+            this.logger = logger;
         }
 
         private void EnsureLtbFolderStructure()
@@ -88,7 +95,7 @@ namespace KPSimpleBackup
             // perform backup for all files
             foreach (IOConnectionInfo fileInfo in filesToBackup)
             {
-                this.database.SaveAs(fileInfo, false, null);
+                this.database.SaveAs(fileInfo, false, this.logger);
             }
         }
 

@@ -177,6 +177,7 @@ namespace KPSimpleBackup
                         this.m_logger.Log("Perform LTB-Backup...", LogStatusType.Info);
 
                         LongTermBackupManager ltbManager = new LongTermBackupManager(backupFolderPath, dbBackupFileName, databaseExtension, database, m_config);
+                        ltbManager.SetLogger(this.m_logger);
                         ltbManager.RunLtb();
 
                         this.m_logger.Log("Finished LTB-Backup...", LogStatusType.Info);
