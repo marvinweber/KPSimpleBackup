@@ -17,6 +17,9 @@ namespace KPSimpleBackup
         private static readonly bool DEFAULT_AUTO_BACKUP_DATABASE = true;
         private static readonly bool DEFAULT_BACKUP_ON_DB_CLOSE = false;
         private static readonly bool DEFAULT_USE_LONG_TERM_BACKUP = false;
+        private static readonly long DEFAULT_LTB_WEEKLY_AMOUNT = 4;
+        private static readonly long DEFAULT_LTB_MONTHLY_AMOUNT = 12;
+        private static readonly long DEFAULT_LTB_YEARLY_AMOUNT = 1000;
         private static readonly string DEFAULT_DATE_FORMAT = "yyyy.MM.dd_H.mm.ss";
         private static readonly String EMPTY_STRING = "";
         private static readonly char PATH_SEPERATOR = ';';
@@ -151,6 +154,45 @@ namespace KPSimpleBackup
             set
             {
                 this.customConfig.SetBool("KPSimpleBackupConfig_useLongTermBackup", value);
+            }
+        }
+
+        public int LtbWeeklyAmount
+        {
+            get
+            {
+                return (int) this.customConfig.GetLong("KPSimpleBackupConfig_ltbWeeklyAmount", DEFAULT_LTB_WEEKLY_AMOUNT);
+            }
+
+            set
+            {
+                this.customConfig.SetLong("KPSimpleBackupConfig_ltbWeeklyAmount", value);
+            }
+        }
+
+        public int LtbMonthlyAmount
+        {
+            get
+            {
+                return (int)this.customConfig.GetLong("KPSimpleBackupConfig_ltbMonthlyAmount", DEFAULT_LTB_MONTHLY_AMOUNT);
+            }
+
+            set
+            {
+                this.customConfig.SetLong("KPSimpleBackupConfig_ltbMonthlyAmount", value);
+            }
+        }
+
+        public int LtbYearlyAmount
+        {
+            get
+            {
+                return (int)this.customConfig.GetLong("KPSimpleBackupConfig_ltbYearlyAmount", DEFAULT_LTB_YEARLY_AMOUNT);
+            }
+
+            set
+            {
+                this.customConfig.SetLong("KPSimpleBackupConfig_ltbYearlyAmount", value);
             }
         }
 

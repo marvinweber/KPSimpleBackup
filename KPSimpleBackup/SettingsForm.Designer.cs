@@ -66,6 +66,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.numericUpDownLtbWeekly = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownLtbMonthly = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownLtbYearly = new System.Windows.Forms.NumericUpDown();
             linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -76,6 +82,9 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLtbWeekly)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLtbMonthly)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLtbYearly)).BeginInit();
             this.SuspendLayout();
             // 
             // linkLabelRessourcesOokiDialogsWebsite
@@ -277,6 +286,12 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.numericUpDownLtbYearly);
+            this.tabPage2.Controls.Add(this.numericUpDownLtbMonthly);
+            this.tabPage2.Controls.Add(this.numericUpDownLtbWeekly);
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label9);
@@ -300,12 +315,13 @@
             // checkBoxEnableLongTermBackups
             // 
             this.checkBoxEnableLongTermBackups.AutoSize = true;
-            this.checkBoxEnableLongTermBackups.Location = new System.Drawing.Point(10, 306);
+            this.checkBoxEnableLongTermBackups.Location = new System.Drawing.Point(12, 306);
             this.checkBoxEnableLongTermBackups.Name = "checkBoxEnableLongTermBackups";
             this.checkBoxEnableLongTermBackups.Size = new System.Drawing.Size(158, 17);
             this.checkBoxEnableLongTermBackups.TabIndex = 14;
             this.checkBoxEnableLongTermBackups.Text = "Enable Long-Term-Backups";
             this.checkBoxEnableLongTermBackups.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLongTermBackups.CheckedChanged += new System.EventHandler(this.CheckBoxEnableLongTermBackups_CheckedChanged);
             // 
             // checkBoxBackupOnDbClose
             // 
@@ -486,11 +502,107 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(9, 259);
+            this.label11.Location = new System.Drawing.Point(8, 259);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(612, 39);
             this.label11.TabIndex = 18;
             this.label11.Text = resources.GetString("label11.Text");
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(30, 331);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(217, 13);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "Amount of weekly backups to keep (weeks):";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(30, 357);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(223, 13);
+            this.label13.TabIndex = 20;
+            this.label13.Text = "Amount of monthly backups to keep (months):";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(30, 383);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(205, 13);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "Amount of yearly backups to keep (years):";
+            // 
+            // numericUpDownLtbWeekly
+            // 
+            this.numericUpDownLtbWeekly.Location = new System.Drawing.Point(263, 329);
+            this.numericUpDownLtbWeekly.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownLtbWeekly.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLtbWeekly.Name = "numericUpDownLtbWeekly";
+            this.numericUpDownLtbWeekly.Size = new System.Drawing.Size(111, 20);
+            this.numericUpDownLtbWeekly.TabIndex = 22;
+            this.numericUpDownLtbWeekly.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDownLtbMonthly
+            // 
+            this.numericUpDownLtbMonthly.Location = new System.Drawing.Point(263, 355);
+            this.numericUpDownLtbMonthly.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownLtbMonthly.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLtbMonthly.Name = "numericUpDownLtbMonthly";
+            this.numericUpDownLtbMonthly.Size = new System.Drawing.Size(111, 20);
+            this.numericUpDownLtbMonthly.TabIndex = 23;
+            this.numericUpDownLtbMonthly.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDownLtbYearly
+            // 
+            this.numericUpDownLtbYearly.Location = new System.Drawing.Point(263, 381);
+            this.numericUpDownLtbYearly.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownLtbYearly.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLtbYearly.Name = "numericUpDownLtbYearly";
+            this.numericUpDownLtbYearly.Size = new System.Drawing.Size(111, 20);
+            this.numericUpDownLtbYearly.TabIndex = 24;
+            this.numericUpDownLtbYearly.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // SettingsForm
             // 
@@ -518,6 +630,9 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLtbWeekly)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLtbMonthly)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLtbYearly)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -559,5 +674,11 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numericUpDownLtbYearly;
+        private System.Windows.Forms.NumericUpDown numericUpDownLtbMonthly;
+        private System.Windows.Forms.NumericUpDown numericUpDownLtbWeekly;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
     }
 }

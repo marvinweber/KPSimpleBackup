@@ -76,6 +76,9 @@ namespace KPSimpleBackup
 
             // long term backups
             this.appConfig.UseLongTermBackup = checkBoxEnableLongTermBackups.Checked;
+            this.appConfig.LtbWeeklyAmount = (int) numericUpDownLtbWeekly.Value;
+            this.appConfig.LtbMonthlyAmount = (int) numericUpDownLtbMonthly.Value;
+            this.appConfig.LtbYearlyAmount = (int) numericUpDownLtbYearly.Value;
 
             // date format
             this.appConfig.DateFormat = textBoxDateFormat.Text;
@@ -108,6 +111,10 @@ namespace KPSimpleBackup
 
             // long term backups
             checkBoxEnableLongTermBackups.Checked = this.appConfig.UseLongTermBackup;
+            this.SetLtbDurationNumericSettingsEnabledStatus(this.appConfig.UseLongTermBackup);
+            numericUpDownLtbWeekly.Value = this.appConfig.LtbWeeklyAmount;
+            numericUpDownLtbMonthly.Value = this.appConfig.LtbMonthlyAmount;
+            numericUpDownLtbYearly.Value = this.appConfig.LtbYearlyAmount;
 
             // date format
             textBoxDateFormat.Text = this.appConfig.DateFormat;
@@ -173,6 +180,28 @@ namespace KPSimpleBackup
             {
                 textBoxBackupFileEnding.Enabled = checkbox.Checked;
             }
+        }
+
+        private void CheckBoxEnableLongTermBackups_CheckedChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.CheckBox checkbox = sender as System.Windows.Forms.CheckBox;
+            if (checkbox != null)
+            {
+                this.SetLtbDurationNumericSettingsEnabledStatus(checkbox.Checked);
+            }
+        }
+
+        /// <summary>
+        /// Set the enabled status of the numericUpDowns for the Ltb
+        /// settings (how long each type should be kept).
+        /// </summary>
+        /// <param name="enabled">if numericUpDown should be enabled
+        /// or not</param>
+        private void SetLtbDurationNumericSettingsEnabledStatus(bool enabled)
+        {
+            numericUpDownLtbWeekly.Enabled = enabled;
+            numericUpDownLtbMonthly.Enabled = enabled;
+            numericUpDownLtbYearly.Enabled = enabled;
         }
     }
 }
