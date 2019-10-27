@@ -9,10 +9,6 @@ namespace KPSimpleBackup
 {
     public class LongTermBackupManager
     {
-        private const int STORAGE_TIME_WEEKLY = 4;
-        private const int STORAGE_TIME_MONTHLY = 12;
-        private const int STORAGE_TIME_YEARLY = 1000;
-
         private const string LTB_FOLDER_SUFFIX = "_long-term-backups";
         private const string LTB_FOLDER_WEEKLY = "weekly";
         private const string LTB_FOLDER_MONTHLY = "monthly";
@@ -103,9 +99,9 @@ namespace KPSimpleBackup
         {
             string searchPattern = this.dbFileName + "_*" + this.dbFileExtension;
 
-            this.Cleanup(this.basePathWeekly, searchPattern, STORAGE_TIME_WEEKLY);
-            this.Cleanup(this.basePathMonthly, searchPattern, STORAGE_TIME_MONTHLY);
-            this.Cleanup(this.basePathYearly, searchPattern, STORAGE_TIME_YEARLY);
+            this.Cleanup(this.basePathWeekly, searchPattern, this.config.LtbWeeklyAmount);
+            this.Cleanup(this.basePathMonthly, searchPattern, this.config.LtbMonthlyAmount);
+            this.Cleanup(this.basePathYearly, searchPattern, this.config.LtbYearlyAmount);
         }
 
         private void Cleanup(string path, string searchPattern, int filesToKeepAmount)
