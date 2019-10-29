@@ -19,7 +19,8 @@ namespace KPSimpleBackup
 
         public bool ContinueWork()
         {
-            throw new System.NotImplementedException();
+            this.StoreLine("OPERATION CONTINUED WORK!");
+            return true;
         }
 
         public void EndLogging()
