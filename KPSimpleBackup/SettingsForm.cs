@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ookii.Dialogs.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -22,13 +23,13 @@ namespace KPSimpleBackup
 
         private void buttonAddFolder_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog objDialog = new FolderBrowserDialog();
-            objDialog.Description = "Backup Path";
-            objDialog.SelectedPath = @"C:\";
-            DialogResult objResult = objDialog.ShowDialog(this);
-            if (objResult == DialogResult.OK)
+            VistaFolderBrowserDialog dialog = new VistaFolderBrowserDialog();
+            dialog.Description = "Select a backup folder";
+            dialog.UseDescriptionForTitle = true;
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                string pathSelected = objDialog.SelectedPath;
+                string pathSelected = dialog.SelectedPath;
 
                 // replace backslash (windows-specific) with slash
                 pathSelected = pathSelected.Replace("\\", "/");
@@ -58,7 +59,28 @@ namespace KPSimpleBackup
             this.appConfig.FileAmountToKeep = (long) numericNumberOfBackups.Value;
             this.appConfig.UseDatabaseNameForBackupFiles = checkBoxUseDbName.Checked;
             this.appConfig.UseRecycleBinDeletedBackups = checkBoxUseRecycleBin.Checked;
+
+            // auto backup and backup on database close
             this.appConfig.AutoDatabaseBackup = checkBoxAutoBackup.Checked;
+            this.appConfig.BackupOnDbClose = checkBoxBackupOnDbClose.Checked;
+
+            // custom file extension
+            this.appConfig.UseCustomBackupFileExtension = checkBoxCustomFileEnding.Checked;
+            string backupFileExtension = textBoxBackupFileEnding.Text;
+            // add prepending point at beginning of file-extension if not set by user
+            if (backupFileExtension.ToCharArray()[0] != '.')
+            {
+                backupFileExtension = "." + backupFileExtension;
+            }
+            this.appConfig.BackupFileExtension = backupFileExtension;
+
+            // long term backups
+            this.appConfig.UseLongTermBackup = checkBoxEnableLongTermBackups.Checked;
+            this.appConfig.LtbWeeklyAmount = (int) numericUpDownLtbWeekly.Value;
+            this.appConfig.LtbMonthlyAmount = (int) numericUpDownLtbMonthly.Value;
+            this.appConfig.LtbYearlyAmount = (int) numericUpDownLtbYearly.Value;
+
+            // date format
             this.appConfig.DateFormat = textBoxDateFormat.Text;
 
             // save paths
@@ -77,8 +99,27 @@ namespace KPSimpleBackup
             checkBoxUseDbName.Checked = this.appConfig.UseDatabaseNameForBackupFiles;
             numericNumberOfBackups.Value = this.appConfig.FileAmountToKeep;
             checkBoxUseRecycleBin.Checked = this.appConfig.UseRecycleBinDeletedBackups;
+
+            // auto backup and backup on database close
             checkBoxAutoBackup.Checked = this.appConfig.AutoDatabaseBackup;
+            checkBoxBackupOnDbClose.Checked = this.appConfig.BackupOnDbClose;
+
+            // custom file extension checkbox & text box
+            checkBoxCustomFileEnding.Checked = this.appConfig.UseCustomBackupFileExtension;
+            textBoxBackupFileEnding.Text = this.appConfig.BackupFileExtension;
+            textBoxBackupFileEnding.Enabled = this.appConfig.UseCustomBackupFileExtension;
+
+            // long term backups
+            checkBoxEnableLongTermBackups.Checked = this.appConfig.UseLongTermBackup;
+            this.SetLtbDurationNumericSettingsEnabledStatus(this.appConfig.UseLongTermBackup);
+            numericUpDownLtbWeekly.Value = this.appConfig.LtbWeeklyAmount;
+            numericUpDownLtbMonthly.Value = this.appConfig.LtbMonthlyAmount;
+            numericUpDownLtbYearly.Value = this.appConfig.LtbYearlyAmount;
+
+            // date format
             textBoxDateFormat.Text = this.appConfig.DateFormat;
+
+            // version label
             labelVersion.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.LoadBackupPaths();
         }
@@ -120,6 +161,47 @@ namespace KPSimpleBackup
         private void linkLabelReportBug_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/weberonede/KPSimpleBackup/issues");
+        }
+
+        private void LinkLabelRessourcesOokiDialogsWebsite_MouseClick(object sender, MouseEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.ookii.org/Software/Dialogs/");
+        }
+
+        private void LinkLabelRessourcesOokiDialogsGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/caioproiete/ookii-dialogs-winforms");
+        }
+
+        private void CheckBoxCustomFileEnding_CheckedChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.CheckBox checkbox = sender as System.Windows.Forms.CheckBox;
+            if (checkbox != null)
+            {
+                textBoxBackupFileEnding.Enabled = checkbox.Checked;
+            }
+        }
+
+        private void CheckBoxEnableLongTermBackups_CheckedChanged(object sender, EventArgs e)
+        {
+            System.Windows.Forms.CheckBox checkbox = sender as System.Windows.Forms.CheckBox;
+            if (checkbox != null)
+            {
+                this.SetLtbDurationNumericSettingsEnabledStatus(checkbox.Checked);
+            }
+        }
+
+        /// <summary>
+        /// Set the enabled status of the numericUpDowns for the Ltb
+        /// settings (how long each type should be kept).
+        /// </summary>
+        /// <param name="enabled">if numericUpDown should be enabled
+        /// or not</param>
+        private void SetLtbDurationNumericSettingsEnabledStatus(bool enabled)
+        {
+            numericUpDownLtbWeekly.Enabled = enabled;
+            numericUpDownLtbMonthly.Enabled = enabled;
+            numericUpDownLtbYearly.Enabled = enabled;
         }
     }
 }

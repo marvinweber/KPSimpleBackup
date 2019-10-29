@@ -9,13 +9,17 @@ using KeePassLib;
 using KeePassLib.Serialization;
 using KeePassLib.Utility;
 using Microsoft.VisualBasic.FileIO;
+using KeePassLib.Interfaces;
 
 namespace KPSimpleBackup
 {
     public sealed class KPSimpleBackupExt : Plugin
     {
+        private const string FILE_PREFIX = "file:///";
+
         private IPluginHost m_host = null;
         private KPSimpleBackupConfig m_config = null;
+        private Logger m_logger = null;
 
         public override bool Initialize(IPluginHost host)
         {
@@ -23,9 +27,11 @@ namespace KPSimpleBackup
 
             m_host = host;
             m_config = new KPSimpleBackupConfig(m_host.CustomConfig);
+            m_logger = new Logger(m_config);
 
-            // add backup action event handler
-            m_host.MainWindow.FileSaved += this.OnSaveAction;
+            // add backup action event handlers for when db is being saved and closed
+            m_host.MainWindow.FileSaved += this.OnDatabaseSaveAction;
+            m_host.MainWindow.FileClosingPre += this.OnDatabaseCloseAction;
 
             // initialization successful
             return true;
@@ -34,7 +40,8 @@ namespace KPSimpleBackup
         public override void Terminate()
         {
             // Remove event handler
-            m_host.MainWindow.FileSaved -= this.OnSaveAction;
+            m_host.MainWindow.FileSaved -= this.OnDatabaseSaveAction;
+            m_host.MainWindow.FileClosingPost -= this.OnDatabaseCloseAction;
         }
 
         public override string UpdateUrl
@@ -53,7 +60,6 @@ namespace KPSimpleBackup
                 ToolStripMenuItem tsmi = new ToolStripMenuItem();
 
                 tsmi.Text = "KPSimpleBackup";
-                //tsmi.Click += this.OnOptionsClicked;
 
                 ToolStripMenuItem backupNowItem = new ToolStripMenuItem();
                 backupNowItem.Text = "Backup Database now!";
@@ -63,9 +69,14 @@ namespace KPSimpleBackup
                 openSettings.Text = "Settings";
                 openSettings.Click += this.OnMenuSettings;
 
+                ToolStripMenuItem openLog = new ToolStripMenuItem();
+                openLog.Text = "Open Session Log";
+                openLog.Click += this.OnMenuShowLog;
+
 
                 tsmi.DropDownItems.Add(backupNowItem);
                 tsmi.DropDownItems.Add(openSettings);
+                tsmi.DropDownItems.Add(openLog);
 
                 return tsmi;
             }
@@ -81,10 +92,25 @@ namespace KPSimpleBackup
             settingsWindow = null;
         } 
 
-        private void OnSaveAction(object sender, FileSavedEventArgs e)
+        private void OnMenuShowLog(object sender, EventArgs e)
+        {
+            LogForm logForm = new LogForm(this.m_logger);
+            logForm.ShowDialog();
+            logForm.Dispose();
+        }
+
+        private void OnDatabaseSaveAction(object sender, FileSavedEventArgs e)
         {
             // only create backup if auto-backup is enabled
             if (this.m_config.AutoDatabaseBackup)
+            {
+                this.BackupAction(e.Database);
+            }
+        }
+
+        private void OnDatabaseCloseAction(object sender, FileClosingEventArgs e)
+        {
+            if (this.m_config.BackupOnDbClose && e.Database.IsOpen)
             {
                 this.BackupAction(e.Database);
             }
@@ -112,6 +138,18 @@ namespace KPSimpleBackup
                 return;
             }
 
+            // Get extension/ fileending for the database backup-file
+            string databaseExtension = KPSimpleBackupConfig.DEFAULT_BACKUP_FILE_EXTENSION;
+            if (this.m_config.UseCustomBackupFileExtension)
+            {
+                databaseExtension = this.m_config.BackupFileExtension;
+            }
+            else
+            {
+                string databasePath = database.IOConnectionInfo.Path;
+                databaseExtension = Path.GetExtension(databasePath);
+            }
+
             List<String> paths = this.m_config.BackupPath;
             String dateTimeFormat = this.m_config.DateFormat;
             string time = DateTime.Now.ToString(dateTimeFormat);
@@ -119,15 +157,38 @@ namespace KPSimpleBackup
             // Save backup database for each specified path and perform cleanup
             foreach (String backupFolderPath in paths)
             {
-                string dbBackupFileName = this.GetBackupFileName(database);
-                string path = "file:///" + backupFolderPath + dbBackupFileName + "_" + time + ".kdbx";
-                IOConnectionInfo connection = IOConnectionInfo.FromPath(path);            
-                
-                // save database TODO add Logger
-                database.SaveAs(connection, false, null);
+                try
+                {
+                    string dbBackupFileName = this.GetBackupFileName(database);
+                    string path = FILE_PREFIX + backupFolderPath + dbBackupFileName + "_" + time + databaseExtension;
 
-                // Cleanup
-                this.Cleanup(backupFolderPath, dbBackupFileName, database.IOConnectionInfo.Path);
+                    this.m_logger.Log("Start backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
+
+                    IOConnectionInfo connection = IOConnectionInfo.FromPath(path);
+                    database.SaveAs(connection, false, this.m_logger);
+
+                    // Cleanup
+                    string cleanupSearchPattern = dbBackupFileName + "_*" + databaseExtension;
+                    this.Cleanup(backupFolderPath, cleanupSearchPattern, database.IOConnectionInfo.Path);
+
+                    // perform long term backup if enabled in settings
+                    if (this.m_config.UseLongTermBackup)
+                    {
+                        this.m_logger.Log("Perform LTB-Backup...", LogStatusType.Info);
+
+                        LongTermBackupManager ltbManager = new LongTermBackupManager(backupFolderPath, dbBackupFileName, databaseExtension, database, m_config);
+                        ltbManager.SetLogger(this.m_logger);
+                        ltbManager.RunLtb();
+
+                        this.m_logger.Log("Finished LTB-Backup...", LogStatusType.Info);
+                    }
+
+                    this.m_logger.Log("Finished backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
+                }
+                catch (Exception e)
+                {
+                    this.m_logger.Log("Could not backup database!", LogStatusType.Error);
+                }
             }
         }
 
@@ -146,13 +207,12 @@ namespace KPSimpleBackup
             return backupFileName;
         }
 
-        private void Cleanup(String path, String fileNamePrefix, String originalDatabasePath)
+        private void Cleanup(String path, String searchPattern, String originalDatabasePath)
         {
             int filesToKeepAmount = (int) this.m_config.FileAmountToKeep;
             // read from settings whether to use recycle bin or delete files permanently
             var recycleOption = this.m_config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
 
-            String searchPattern = fileNamePrefix + "_*.kdbx";
             String[] fileList = Directory.GetFiles(path, searchPattern).OrderBy(f => f).Reverse().ToArray();
 
             // if more backup files available than needed loop through the unnecessary ones and remove them
