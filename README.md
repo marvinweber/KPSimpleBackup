@@ -11,7 +11,7 @@ More information about installation, setup, etc. in the [KPSimpleBackup Wiki](ht
 
 ## Installation & Documentation
 * [Installation instructions](https://github.com/marvinweber/KPSimpleBackup/wiki/Installation)  
-* [Usage/ Settings instructions / Documentation](https://github.com/marvinweber/KPSimpleBackup/wiki/Usage).
+* [Usage/ Settings instructions / Documentation](https://github.com/marvinweber/KPSimpleBackup/wiki/User-Documentation).
 
 ## Credits
 Credits to [caioproiete/ookii-dialogs-winforms](https://github.com/caioproiete/ookii-dialogs-winforms) which is used for the backup-folder selection dialog in KPSimple Backup.
