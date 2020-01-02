@@ -9,11 +9,9 @@ This is a simple KeePass Plugin that saves a backup of your Password-Database to
 ## Wiki
 More information about installation, setup, etc. in the [KPSimpleBackup Wiki](https://github.com/marvinweber/KPSimpleBackup/wiki).
 
-## Installation
-[See the wiki page for installation instuctions](https://github.com/marvinweber/KPSimpleBackup/wiki/Installation).
-
-## Setup & Usage
-[See the wiki page for usage instuctions](https://github.com/marvinweber/KPSimpleBackup/wiki/Usage).
+## Installation & Documentation
+* [Installation instructions](https://github.com/marvinweber/KPSimpleBackup/wiki/Installation)  
+* [Usage/ Settings instructions / Documentation](https://github.com/marvinweber/KPSimpleBackup/wiki/Usage).
 
 ## Credits
 Credits to [caioproiete/ookii-dialogs-winforms](https://github.com/caioproiete/ookii-dialogs-winforms) which is used for the backup-folder selection dialog in KPSimple Backup.
