@@ -10,6 +10,7 @@ using KeePassLib.Serialization;
 using KeePassLib.Utility;
 using Microsoft.VisualBasic.FileIO;
 using KeePassLib.Interfaces;
+using KeePass.Resources;
 
 namespace KPSimpleBackup
 {
@@ -154,6 +155,8 @@ namespace KPSimpleBackup
             String dateTimeFormat = this.m_config.DateFormat;
             string time = DateTime.Now.ToString(dateTimeFormat);
 
+            this.m_host.MainWindow.UIBlockInteraction(true);
+
             // Save backup database for each specified path and perform cleanup
             foreach (String backupFolderPath in paths)
             {
@@ -165,7 +168,11 @@ namespace KPSimpleBackup
                     this.m_logger.Log("Start backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
 
                     IOConnectionInfo connection = IOConnectionInfo.FromPath(path);
-                    database.SaveAs(connection, false, this.m_logger);
+
+                    IStatusLogger swLogger = this.m_host.MainWindow.CreateShowWarningsLogger();
+                    swLogger.StartLogging(KPRes.SavingDatabase, true);
+                    database.SaveAs(connection, false, swLogger);
+                    swLogger.EndLogging();
 
                     // Cleanup
                     string cleanupSearchPattern = dbBackupFileName + "_*" + databaseExtension;
@@ -177,7 +184,7 @@ namespace KPSimpleBackup
                         this.m_logger.Log("Perform LTB-Backup...", LogStatusType.Info);
 
                         LongTermBackupManager ltbManager = new LongTermBackupManager(backupFolderPath, dbBackupFileName, databaseExtension, database, m_config);
-                        ltbManager.SetLogger(this.m_logger);
+                        ltbManager.SetLogger(swLogger);
                         ltbManager.RunLtb();
 
                         this.m_logger.Log("Finished LTB-Backup...", LogStatusType.Info);
@@ -187,9 +194,12 @@ namespace KPSimpleBackup
                 }
                 catch (Exception e)
                 {
-                    this.m_logger.Log("Could not backup database!", LogStatusType.Error);
+                    this.m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
+                    this.m_logger.Log(e.ToString(), LogStatusType.Error);
                 }
             }
+
+            this.m_host.MainWindow.UIBlockInteraction(false);
         }
 
         private String GetBackupFileName(PwDatabase database)

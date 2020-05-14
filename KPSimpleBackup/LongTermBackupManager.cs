@@ -1,4 +1,5 @@
-﻿using KeePassLib;
+﻿using KeePass.Resources;
+using KeePassLib;
 using KeePassLib.Serialization;
 using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
@@ -27,7 +28,11 @@ namespace KPSimpleBackup
         private string basePathMonthly;
         private string basePathYearly;
 
-        private KeePassLib.Interfaces.IStatusLogger logger = null;
+        /// <summary>
+        /// Logger used by the MainWindows of KeePass to show current status
+        /// of saving process.
+        /// </summary>
+        private KeePassLib.Interfaces.IStatusLogger KPMainWindowSwLogger = null;
 
         public LongTermBackupManager(string basePath, string dbFileName, string dbFileExtension, PwDatabase database, KPSimpleBackupConfig config)
         {
@@ -53,7 +58,7 @@ namespace KPSimpleBackup
 
         public void SetLogger(KeePassLib.Interfaces.IStatusLogger logger)
         {
-            this.logger = logger;
+            this.KPMainWindowSwLogger = logger;
         }
 
         private void EnsureLtbFolderStructure()
@@ -91,7 +96,9 @@ namespace KPSimpleBackup
             // perform backup for all files
             foreach (IOConnectionInfo fileInfo in filesToBackup)
             {
-                this.database.SaveAs(fileInfo, false, this.logger);
+                this.KPMainWindowSwLogger.StartLogging(KPRes.SavingDatabase, true);
+                this.database.SaveAs(fileInfo, false, this.KPMainWindowSwLogger);
+                this.KPMainWindowSwLogger.EndLogging();
             }
         }
 
