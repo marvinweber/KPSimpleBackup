@@ -16,8 +16,6 @@ namespace KPSimpleBackup
 {
     public sealed class KPSimpleBackupExt : Plugin
     {
-        private const string FILE_PREFIX = "file:///";
-
         private IPluginHost m_host = null;
         private KPSimpleBackupConfig m_config = null;
         private Logger m_logger = null;
@@ -142,103 +140,32 @@ namespace KPSimpleBackup
                 return;
             }
 
-            // Get extension/ fileending for the database backup-file
-            string databaseExtension = KPSimpleBackupConfig.DEFAULT_BACKUP_FILE_EXTENSION;
-            if (this.m_config.UseCustomBackupFileExtension)
-            {
-                databaseExtension = this.m_config.BackupFileExtension;
-            }
-            else
-            {
-                string databasePath = database.IOConnectionInfo.Path;
-                databaseExtension = Path.GetExtension(databasePath);
-            }
-
-            List<String> paths = this.m_config.BackupPath;
-            String dateTimeFormat = this.m_config.DateFormat;
-            string time = DateTime.Now.ToString(dateTimeFormat);
-
             this.m_host.MainWindow.UIBlockInteraction(true);
 
             IStatusLogger swLogger = this.m_host.MainWindow.CreateShowWarningsLogger();
             BackupManager.SetKPMainWindowSwLogger(swLogger);
+            swLogger.SetText("KPSimpleBackup: Backup in progress...", LogStatusType.Info);
 
-            // Save backup database for each specified path and perform cleanup
-            foreach (String backupFolderPath in paths)
+            try
             {
-                try
+                BasicBackupManager basicBackupManager = new BasicBackupManager(database);
+                basicBackupManager.Run();
+
+                // perform long term backup if enabled in settings
+                if (this.m_config.UseLongTermBackup)
                 {
-                    string dbBackupFileName = this.GetBackupFileName(database);
-                    string path = FILE_PREFIX + backupFolderPath + dbBackupFileName + "_" + time + databaseExtension;
-
-                    this.m_logger.Log("Start basic backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
-
-                    IOConnectionInfo connection = IOConnectionInfo.FromPath(path);
-
-                    swLogger.StartLogging(KPRes.SavingDatabase, true);
-                    database.SaveAs(connection, false, swLogger);
-                    swLogger.EndLogging();
-
-                    // Cleanup
-                    string cleanupSearchPattern = dbBackupFileName + "_*" + databaseExtension;
-                    this.Cleanup(backupFolderPath, cleanupSearchPattern, database.IOConnectionInfo.Path);
-
-                    this.m_logger.Log("Finished basic backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
-                }
-                catch (Exception e)
-                {
-                    this.m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
-                    this.m_logger.Log(e.ToString(), LogStatusType.Error);
+                    LongTermBackupManager ltbManager = new LongTermBackupManager(database);
+                    ltbManager.Run();
                 }
             }
-
-            // perform long term backup if enabled in settings
-            if (this.m_config.UseLongTermBackup)
+            catch (Exception e)
             {
-                LongTermBackupManager ltbManager = new LongTermBackupManager(database);
-                ltbManager.Run();
+                this.m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
+                this.m_logger.Log(e.ToString(), LogStatusType.Error);
             }
 
             this.m_host.MainWindow.UIBlockInteraction(false);
-        }
-
-        private String GetBackupFileName(PwDatabase database)
-        {
-            // start with database name as 'fallback' / default
-            string backupFileName = database.Name;
-
-            // get file name if database name shouldn't be used
-            if (!this.m_config.UseDatabaseNameForBackupFiles)
-            {
-                string path = database.IOConnectionInfo.Path;
-                backupFileName = Path.GetFileNameWithoutExtension(path);
-            }
-
-            return backupFileName;
-        }
-
-        private void Cleanup(String path, String searchPattern, String originalDatabasePath)
-        {
-            int filesToKeepAmount = (int) this.m_config.FileAmountToKeep;
-            // read from settings whether to use recycle bin or delete files permanently
-            var recycleOption = this.m_config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
-
-            String[] fileList = Directory.GetFiles(path, searchPattern).OrderBy(f => f).Reverse().ToArray();
-
-            // if more backup files available than needed loop through the unnecessary ones and remove them
-            if (fileList.Count() > filesToKeepAmount)
-            {
-                for (int i = filesToKeepAmount; i < fileList.Count(); i++)
-                {
-                    // never delete original file -> always skip it (in case it made it in the filelist)
-                    if (fileList[i].Equals(originalDatabasePath))
-                    {
-                        continue;
-                    }
-
-                    FileSystem.DeleteFile(fileList[i], UIOption.OnlyErrorDialogs, recycleOption);
-                }
-            }
+            swLogger.SetText("KPSimpleBackup: Backup finished!", LogStatusType.Info);
         }
     }
 }
