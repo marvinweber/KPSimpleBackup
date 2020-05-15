@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupManager.cs" />
     <Compile Include="KPSimpleBackup.cs" />
     <Compile Include="KPSimpleBackupConfig.cs" />
     <Compile Include="LogForm.cs">

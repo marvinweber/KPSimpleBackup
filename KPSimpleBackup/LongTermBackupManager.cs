@@ -1,120 +1,84 @@
-﻿using KeePass.Resources;
-using KeePassLib;
-using KeePassLib.Serialization;
+﻿using KeePassLib;
 using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace KPSimpleBackup
 {
-    public class LongTermBackupManager
+    public class LongTermBackupManager : BackupManager
     {
+        protected override string ManagerName { get { return "LongTermBackup"; } }
+
         private const string LTB_FOLDER_SUFFIX = "_long-term-backups";
         private const string LTB_FOLDER_WEEKLY = "weekly";
         private const string LTB_FOLDER_MONTHLY = "monthly";
         private const string LTB_FOLDER_YEARLY = "yearly";
 
-        private const string FILE_PREFIX = "file:///";
-
-        private string basePath;
-        private string dbFileName;
-        private string dbFileExtension;
-        private PwDatabase database;
-
-        private KPSimpleBackupConfig config;
-
         private string basePathWeekly;
         private string basePathMonthly;
         private string basePathYearly;
 
-        /// <summary>
-        /// Logger used by the MainWindows of KeePass to show current status
-        /// of saving process.
-        /// </summary>
-        private KeePassLib.Interfaces.IStatusLogger KPMainWindowSwLogger = null;
+        private string weekOfYear;
+        private string monthOfYear;
+        private int year;
 
-        public LongTermBackupManager(string basePath, string dbFileName, string dbFileExtension, PwDatabase database, KPSimpleBackupConfig config)
-        {
-            this.basePath = basePath;
-            this.dbFileName = dbFileName;
-            this.dbFileExtension = dbFileExtension;
-            this.database = database;
-
-            this.config = config;
-
-            // assign folder paths
-            this.basePathWeekly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_WEEKLY + "/";
-            this.basePathMonthly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_MONTHLY + "/";
-            this.basePathYearly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_YEARLY + "/";
-        }
-
-        public void RunLtb()
-        {
-            this.EnsureLtbFolderStructure();
-            this.CreateBackupFiles();
-            this.CleanupLtbFolders();
-        }
-
-        public void SetLogger(KeePassLib.Interfaces.IStatusLogger logger)
-        {
-            this.KPMainWindowSwLogger = logger;
-        }
-
-        private void EnsureLtbFolderStructure()
-        {
-            Directory.CreateDirectory(this.basePathWeekly);
-            Directory.CreateDirectory(this.basePathMonthly);
-            Directory.CreateDirectory(this.basePathYearly);
-        }
-
-        private void CreateBackupFiles()
+        public LongTermBackupManager(PwDatabase database) : base(database)
         {
             DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
             System.DateTime now = System.DateTime.Now;
             Calendar cal = dfi.Calendar;
 
             // get current date information
-            string weekOfYear = cal.GetWeekOfYear(now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString("00");
-            string monthOfYear = cal.GetMonth(now).ToString("00");
-            int year = cal.GetYear(now);
+            weekOfYear = cal.GetWeekOfYear(now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString("00");
+            monthOfYear = cal.GetMonth(now).ToString("00");
+            year = cal.GetYear(now);
+        }
 
-            // create paths and connection infos
-            string pathWeekly = FILE_PREFIX + this.basePathWeekly + this.dbFileName + "_" + year + "-" + weekOfYear + this.dbFileExtension;
-            IOConnectionInfo connectionWeekly = IOConnectionInfo.FromPath(pathWeekly);
-            string pathMonthly = FILE_PREFIX + this.basePathMonthly + this.dbFileName + "_" + year + "-" + monthOfYear + this.dbFileExtension;
-            IOConnectionInfo connectionMonthly = IOConnectionInfo.FromPath(pathMonthly);
-            string pathYearly = FILE_PREFIX + this.basePathYearly + this.dbFileName + "_" + year + this.dbFileExtension;
-            IOConnectionInfo connectionYearly = IOConnectionInfo.FromPath(pathYearly);
+        protected override void PreBackup()
+        {
+            basePathWeekly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_WEEKLY + "/";
+            basePathMonthly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_MONTHLY + "/";
+            basePathYearly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_YEARLY + "/";
 
-            // add all backup paths to list
-            System.Collections.ArrayList filesToBackup = new System.Collections.ArrayList();
-            filesToBackup.Add(connectionWeekly);
-            filesToBackup.Add(connectionMonthly);
-            filesToBackup.Add(connectionYearly);
+            Directory.CreateDirectory(basePathWeekly);
+            Directory.CreateDirectory(basePathMonthly);
+            Directory.CreateDirectory(basePathYearly);
+        }
+
+        protected override void Backup()
+        {
+            // create paths for all files
+            string pathWeekly = FILE_PREFIX + basePathWeekly + dbFileName + "_" + year + "-" + weekOfYear + dbFileExtension;
+            string pathMonthly = FILE_PREFIX + basePathMonthly + dbFileName + "_" + year + "-" + monthOfYear + dbFileExtension;
+            string pathYearly = FILE_PREFIX + basePathYearly + dbFileName + "_" + year + dbFileExtension;
+            System.Collections.ArrayList backupPaths = new System.Collections.ArrayList {
+                pathWeekly,
+                pathMonthly,
+                pathYearly
+            };
 
             // perform backup for all files
-            foreach (IOConnectionInfo fileInfo in filesToBackup)
+            foreach (string fileInfo in backupPaths)
             {
-                this.KPMainWindowSwLogger.StartLogging(KPRes.SavingDatabase, true);
-                this.database.SaveAs(fileInfo, false, this.KPMainWindowSwLogger);
-                this.KPMainWindowSwLogger.EndLogging();
+                SavePwDatabaseToPath(fileInfo);
             }
         }
 
-        private void CleanupLtbFolders()
+        protected override void Cleanup()
         {
-            string searchPattern = this.dbFileName + "_*" + this.dbFileExtension;
+            string searchPattern = dbFileName + "_*" + dbFileExtension;
 
-            this.Cleanup(this.basePathWeekly, searchPattern, this.config.LtbWeeklyAmount);
-            this.Cleanup(this.basePathMonthly, searchPattern, this.config.LtbMonthlyAmount);
-            this.Cleanup(this.basePathYearly, searchPattern, this.config.LtbYearlyAmount);
+            CleanupLTB(basePathWeekly, searchPattern, config.LtbWeeklyAmount);
+            CleanupLTB(basePathMonthly, searchPattern, config.LtbMonthlyAmount);
+            CleanupLTB(basePathYearly, searchPattern, config.LtbYearlyAmount);
         }
 
-        private void Cleanup(string path, string searchPattern, int filesToKeepAmount)
+        private void CleanupLTB(string path, string searchPattern, int filesToKeepAmount)
         {
             // read from settings whether to use recycle bin or delete files permanently
-            var recycleOption = this.config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
+            var recycleOption = BackupManager.config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
 
             //searchPattern = fileNamePrefix + "_*.kdbx";
             string[] fileList = Directory.GetFiles(path, searchPattern).OrderBy(f => f).Reverse().ToArray();

@@ -30,6 +30,9 @@ namespace KPSimpleBackup
             m_config = new KPSimpleBackupConfig(m_host.CustomConfig);
             m_logger = new Logger(m_config);
 
+            BackupManager.SetConfig(m_config);
+            BackupManager.SetPluginLogger(m_logger);
+
             // add backup action event handlers for when db is being saved and closed
             m_host.MainWindow.FileSaved += this.OnDatabaseSaveAction;
             m_host.MainWindow.FileClosingPre += this.OnDatabaseCloseAction;
@@ -157,6 +160,9 @@ namespace KPSimpleBackup
 
             this.m_host.MainWindow.UIBlockInteraction(true);
 
+            IStatusLogger swLogger = this.m_host.MainWindow.CreateShowWarningsLogger();
+            BackupManager.SetKPMainWindowSwLogger(swLogger);
+
             // Save backup database for each specified path and perform cleanup
             foreach (String backupFolderPath in paths)
             {
@@ -165,11 +171,10 @@ namespace KPSimpleBackup
                     string dbBackupFileName = this.GetBackupFileName(database);
                     string path = FILE_PREFIX + backupFolderPath + dbBackupFileName + "_" + time + databaseExtension;
 
-                    this.m_logger.Log("Start backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
+                    this.m_logger.Log("Start basic backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
 
                     IOConnectionInfo connection = IOConnectionInfo.FromPath(path);
 
-                    IStatusLogger swLogger = this.m_host.MainWindow.CreateShowWarningsLogger();
                     swLogger.StartLogging(KPRes.SavingDatabase, true);
                     database.SaveAs(connection, false, swLogger);
                     swLogger.EndLogging();
@@ -178,25 +183,20 @@ namespace KPSimpleBackup
                     string cleanupSearchPattern = dbBackupFileName + "_*" + databaseExtension;
                     this.Cleanup(backupFolderPath, cleanupSearchPattern, database.IOConnectionInfo.Path);
 
-                    // perform long term backup if enabled in settings
-                    if (this.m_config.UseLongTermBackup)
-                    {
-                        this.m_logger.Log("Perform LTB-Backup...", LogStatusType.Info);
-
-                        LongTermBackupManager ltbManager = new LongTermBackupManager(backupFolderPath, dbBackupFileName, databaseExtension, database, m_config);
-                        ltbManager.SetLogger(swLogger);
-                        ltbManager.RunLtb();
-
-                        this.m_logger.Log("Finished LTB-Backup...", LogStatusType.Info);
-                    }
-
-                    this.m_logger.Log("Finished backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
+                    this.m_logger.Log("Finished basic backup of database '" + database.Name + "' to path: " + path, LogStatusType.Info);
                 }
                 catch (Exception e)
                 {
                     this.m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
                     this.m_logger.Log(e.ToString(), LogStatusType.Error);
                 }
+            }
+
+            // perform long term backup if enabled in settings
+            if (this.m_config.UseLongTermBackup)
+            {
+                LongTermBackupManager ltbManager = new LongTermBackupManager(database);
+                ltbManager.Run();
             }
 
             this.m_host.MainWindow.UIBlockInteraction(false);
