@@ -14,7 +14,7 @@ namespace KPSimpleBackup
             int amountToKeep,
             RecycleOption recycleOption
         ) {
-            string[] fileList = Directory.GetFiles(path, searchPattern).OrderBy(f => f).Reverse().ToArray();
+            string[] fileList = Directory.GetFiles(path, searchPattern).OrderByDescending(f => new FileInfo(f).CreationTime).ToArray();
 
             // if more backup files available than required delete the obsolete files
             if (fileList.Count() > amountToKeep)
