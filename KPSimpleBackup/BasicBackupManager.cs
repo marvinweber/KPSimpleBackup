@@ -1,6 +1,8 @@
-﻿using KeePassLib;
+﻿using KeePass.Plugins;
+using KeePassLib;
 using Microsoft.VisualBasic.FileIO;
 using System;
+using System.IO;
 
 namespace KPSimpleBackup
 {
@@ -18,7 +20,16 @@ namespace KPSimpleBackup
 
         protected override void PreBackup()
         {
-            //
+            try
+            {
+                Directory.CreateDirectory(basePath);
+            }
+            catch (Exception e)
+            {
+                pluginLogger.Log("Could not create backup directory!", KeePassLib.Interfaces.LogStatusType.Error);
+                pluginLogger.Log("Exception: " + e.ToString(), KeePassLib.Interfaces.LogStatusType.AdditionalInfo);
+                throw e;
+            }
         }
 
         protected override void Backup()

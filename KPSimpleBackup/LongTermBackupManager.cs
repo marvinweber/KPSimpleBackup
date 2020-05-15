@@ -1,5 +1,6 @@
 ﻿using KeePassLib;
 using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Globalization;
 using System.IO;
 
@@ -40,9 +41,18 @@ namespace KPSimpleBackup
             basePathMonthly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_MONTHLY + "/";
             basePathYearly = basePath + dbFileName + LTB_FOLDER_SUFFIX + "/" + LTB_FOLDER_YEARLY + "/";
 
-            Directory.CreateDirectory(basePathWeekly);
-            Directory.CreateDirectory(basePathMonthly);
-            Directory.CreateDirectory(basePathYearly);
+            try
+            {
+                Directory.CreateDirectory(basePathWeekly);
+                Directory.CreateDirectory(basePathMonthly);
+                Directory.CreateDirectory(basePathYearly);
+            }
+            catch (Exception e)
+            {
+                pluginLogger.Log("Could not create backup directories!", KeePassLib.Interfaces.LogStatusType.Error);
+                pluginLogger.Log("Exception: " + e.ToString(), KeePassLib.Interfaces.LogStatusType.AdditionalInfo);
+                throw e;
+            }
         }
 
         protected override void Backup()

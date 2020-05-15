@@ -134,32 +134,46 @@ namespace KPSimpleBackup
                 return;
             }
 
-            this.m_host.MainWindow.UIBlockInteraction(true);
-
             IStatusLogger swLogger = this.m_host.MainWindow.CreateShowWarningsLogger();
-            BackupManager.SetKPMainWindowSwLogger(swLogger);
-            swLogger.SetText("KPSimpleBackup: Backup in progress...", LogStatusType.Info);
-
             try
             {
+                m_host.MainWindow.UIBlockInteraction(true);
+                bool warnings = false;
+
+                BackupManager.SetKPMainWindowSwLogger(swLogger);
+                swLogger.SetText("KPSimpleBackup: Backup started...", LogStatusType.Info);
+
                 BasicBackupManager basicBackupManager = new BasicBackupManager(database);
-                basicBackupManager.Run();
+                warnings = ! basicBackupManager.Run() || warnings;
 
                 // perform long term backup if enabled in settings
                 if (this.m_config.UseLongTermBackup)
                 {
                     LongTermBackupManager ltbManager = new LongTermBackupManager(database);
-                    ltbManager.Run();
+                    warnings = ! ltbManager.Run() || warnings;
+                }
+
+                if (warnings)
+                {
+                    swLogger.SetText("KPSimpleBackup: Backup finished with warnings, consider checking the logs!", LogStatusType.Info);
+                }
+                else
+                {
+                    swLogger.SetText("KPSimpleBackup: Backup finished!", LogStatusType.Info);
                 }
             }
             catch (Exception e)
             {
+                swLogger.EndLogging();
+                swLogger.SetText("KPSimpleBackup: Backup failed, see logs for details!", LogStatusType.Error);
+
                 this.m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
                 this.m_logger.Log(e.ToString(), LogStatusType.Error);
             }
-
-            this.m_host.MainWindow.UIBlockInteraction(false);
-            swLogger.SetText("KPSimpleBackup: Backup finished!", LogStatusType.Info);
+            finally
+            {
+                m_host.MainWindow.UIBlockInteraction(false);
+            }
         }
     }
 }

@@ -72,22 +72,32 @@ namespace KPSimpleBackup
         /// Backups will be created in each backup-directory
         /// saved in the KPSimpleBackupConfig.
         /// </summary>
-        public void Run()
+        /// <returns>If the operation completed successfully without warnings</returns>
+        public bool Run()
         {
             pluginLogger.Log("START BackupManager: " + ManagerName + " for database: " + database.Name, LogStatusType.Info);
+            bool warning = false;
 
             List<string> paths = config.BackupPath;
             foreach (string backupFolderPath in paths)
             {
-                pluginLogger.Log("Backup to next path:" + backupFolderPath, LogStatusType.Info);
-                basePath = backupFolderPath;
+                try
+                {
+                    pluginLogger.Log("Backup to next path: " + backupFolderPath, LogStatusType.Info);
+                    basePath = backupFolderPath;
 
-                PreBackup();
-                Backup();
-                Cleanup();
+                    PreBackup();
+                    Backup();
+                    Cleanup();
+                }
+                catch (Exception)
+                {
+                    warning = true;
+                }
             }
 
             pluginLogger.Log("FINISHED BackupManager: " + ManagerName, LogStatusType.Info);
+            return ! warning;
         }
 
         protected abstract void PreBackup();
@@ -96,8 +106,9 @@ namespace KPSimpleBackup
 
         protected void SavePwDatabaseToPath(IOConnectionInfo fileInfo)
         {
+            pluginLogger.Log("Save database to: " + fileInfo.Path, LogStatusType.Info);
             KPMainWindowSwLogger.StartLogging(KPRes.SavingDatabase, true);
-            database.SaveAs(fileInfo, false, BackupManager.KPMainWindowSwLogger);
+            database.SaveAs(fileInfo, false, KPMainWindowSwLogger);
             KPMainWindowSwLogger.EndLogging();
         }
 
