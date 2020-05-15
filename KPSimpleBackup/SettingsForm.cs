@@ -83,6 +83,9 @@ namespace KPSimpleBackup
             // date format
             this.appConfig.DateFormat = textBoxDateFormat.Text;
 
+            // KeePass config backup
+            this.appConfig.BackupKeePassConfig = checkBoxBackupKeePassConfig.Checked;
+
             // save paths
             List<String> paths = new List<String>();
             foreach (object item in listBoxBackupPaths.Items)
@@ -115,6 +118,9 @@ namespace KPSimpleBackup
             numericUpDownLtbWeekly.Value = this.appConfig.LtbWeeklyAmount;
             numericUpDownLtbMonthly.Value = this.appConfig.LtbMonthlyAmount;
             numericUpDownLtbYearly.Value = this.appConfig.LtbYearlyAmount;
+
+            // KeePass config backup
+            checkBoxBackupKeePassConfig.Checked = this.appConfig.BackupKeePassConfig;
 
             // date format
             textBoxDateFormat.Text = this.appConfig.DateFormat;
