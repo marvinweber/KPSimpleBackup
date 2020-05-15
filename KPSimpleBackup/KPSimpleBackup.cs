@@ -142,15 +142,23 @@ namespace KPSimpleBackup
 
                 BackupManager.SetKPMainWindowSwLogger(swLogger);
                 swLogger.SetText("KPSimpleBackup: Backup started...", LogStatusType.Info);
+                m_logger.Log("KPSimpleBackup: Backup started...", LogStatusType.Info);
 
                 BasicBackupManager basicBackupManager = new BasicBackupManager(database);
                 warnings = ! basicBackupManager.Run() || warnings;
 
                 // perform long term backup if enabled in settings
-                if (this.m_config.UseLongTermBackup)
+                if (m_config.UseLongTermBackup)
                 {
                     LongTermBackupManager ltbManager = new LongTermBackupManager(database);
                     warnings = ! ltbManager.Run() || warnings;
+                }
+
+                // backup KeePass configuration if enabled in settings
+                if (m_config.BackupKeePassConfig)
+                {
+                    KPConfigBackupManager kPConfigBackupManager = new KPConfigBackupManager(database);
+                    warnings = ! kPConfigBackupManager.Run() || warnings;
                 }
 
                 if (warnings)
@@ -167,12 +175,13 @@ namespace KPSimpleBackup
                 swLogger.EndLogging();
                 swLogger.SetText("KPSimpleBackup: Backup failed, see logs for details!", LogStatusType.Error);
 
-                this.m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
-                this.m_logger.Log(e.ToString(), LogStatusType.Error);
+                m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
+                m_logger.Log(e.ToString(), LogStatusType.Error);
             }
             finally
             {
                 m_host.MainWindow.UIBlockInteraction(false);
+                m_logger.Log("KPSimpleBackup: Finished", LogStatusType.Info);
             }
         }
     }

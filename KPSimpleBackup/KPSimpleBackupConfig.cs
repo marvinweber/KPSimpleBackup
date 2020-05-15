@@ -20,6 +20,7 @@ namespace KPSimpleBackup
         private static readonly long DEFAULT_LTB_WEEKLY_AMOUNT = 4;
         private static readonly long DEFAULT_LTB_MONTHLY_AMOUNT = 12;
         private static readonly long DEFAULT_LTB_YEARLY_AMOUNT = 1000;
+        private static readonly bool DEFAULT_BACKUP_KEEPASS_CONFIG = false;
         private static readonly string DEFAULT_DATE_FORMAT = "yyyy.MM.dd_H.mm.ss";
         private static readonly String EMPTY_STRING = "";
         private static readonly char PATH_SEPERATOR = ';';
@@ -193,6 +194,19 @@ namespace KPSimpleBackup
             set
             {
                 this.customConfig.SetLong("KPSimpleBackupConfig_ltbYearlyAmount", value);
+            }
+        }
+
+        public bool BackupKeePassConfig
+        {
+            get
+            {
+                return this.customConfig.GetBool("KPSimpleBackupConfig_backupKeePassConfig", DEFAULT_BACKUP_KEEPASS_CONFIG);
+            }
+
+            set
+            {
+                this.customConfig.SetBool("KPSimpleBackupConfig_backupKeePassConfig", value);
             }
         }
 
