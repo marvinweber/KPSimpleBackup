@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="BackupManager.cs" />
     <Compile Include="BasicBackupManager.cs" />
+    <Compile Include="CleanupManager.cs" />
     <Compile Include="KPSimpleBackup.cs" />
     <Compile Include="KPSimpleBackupConfig.cs" />
     <Compile Include="LogForm.cs">

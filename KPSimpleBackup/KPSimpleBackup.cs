@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 using System.Windows.Forms;
 using KeePass.Forms;
 using KeePass.Plugins;
 using KeePassLib;
-using KeePassLib.Serialization;
 using KeePassLib.Utility;
-using Microsoft.VisualBasic.FileIO;
 using KeePassLib.Interfaces;
-using KeePass.Resources;
 
 namespace KPSimpleBackup
 {

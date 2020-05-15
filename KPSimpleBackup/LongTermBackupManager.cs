@@ -2,8 +2,6 @@
 using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace KPSimpleBackup
 {
@@ -69,28 +67,11 @@ namespace KPSimpleBackup
         protected override void Cleanup()
         {
             string searchPattern = dbFileName + "_*" + dbFileExtension;
+            RecycleOption recycleOption = config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
 
-            CleanupLTB(basePathWeekly, searchPattern, config.LtbWeeklyAmount);
-            CleanupLTB(basePathMonthly, searchPattern, config.LtbMonthlyAmount);
-            CleanupLTB(basePathYearly, searchPattern, config.LtbYearlyAmount);
-        }
-
-        private void CleanupLTB(string path, string searchPattern, int filesToKeepAmount)
-        {
-            // read from settings whether to use recycle bin or delete files permanently
-            var recycleOption = BackupManager.config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
-
-            //searchPattern = fileNamePrefix + "_*.kdbx";
-            string[] fileList = Directory.GetFiles(path, searchPattern).OrderBy(f => f).Reverse().ToArray();
-
-            // if more backup files available than needed loop through the unnecessary ones and remove them
-            if (fileList.Count() > filesToKeepAmount)
-            {
-                for (int i = filesToKeepAmount; i < fileList.Count(); i++)
-                {
-                    FileSystem.DeleteFile(fileList[i], UIOption.OnlyErrorDialogs, recycleOption);
-                }
-            }
+            CleanupManager.Cleanup(basePathWeekly, searchPattern, database.IOConnectionInfo.Path, config.LtbWeeklyAmount, recycleOption);
+            CleanupManager.Cleanup(basePathMonthly, searchPattern, database.IOConnectionInfo.Path, config.LtbMonthlyAmount, recycleOption);
+            CleanupManager.Cleanup(basePathYearly, searchPattern, database.IOConnectionInfo.Path, config.LtbYearlyAmount, recycleOption);
         }
     }
 }
