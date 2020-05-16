@@ -3,6 +3,7 @@ using KeePass.Resources;
 using KeePassLib;
 using KeePassLib.Interfaces;
 using KeePassLib.Serialization;
+using KeePassLib.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -83,16 +84,19 @@ namespace KPSimpleBackup
             {
                 try
                 {
-                    pluginLogger.Log("Backup to next path: " + backupFolderPath, LogStatusType.Info);
-                    basePath = backupFolderPath;
+                    // ensure (possible stored) relative path is converted to an absolute one
+                    basePath = UrlUtil.EnsureTerminatingSeparator(UrlUtil.GetShortestAbsolutePath(backupFolderPath), false);
+                    pluginLogger.Log("Backup to next path: " + basePath, LogStatusType.Info);
 
                     PreBackup();
                     Backup();
                     Cleanup();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     warning = true;
+                    pluginLogger.Log("BackupManager (" + ManagerName + ") finished with warnings!", LogStatusType.AdditionalInfo);
+                    pluginLogger.Log("Exception: " + e.ToString(), LogStatusType.AdditionalInfo);
                 }
             }
 
