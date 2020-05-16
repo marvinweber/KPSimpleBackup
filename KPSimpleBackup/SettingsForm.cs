@@ -53,12 +53,19 @@ namespace KPSimpleBackup
             listBoxBackupPaths.Items.RemoveAt(listBoxBackupPaths.SelectedIndex);
         }
 
+        /// <summary>
+        /// Store the current state of the settings form to
+        /// the plugins configuration.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSave_Click(object sender, EventArgs e)
         {
             // save values and close settings form
             this.appConfig.FileAmountToKeep = (long) numericNumberOfBackups.Value;
             this.appConfig.UseDatabaseNameForBackupFiles = checkBoxUseDbName.Checked;
             this.appConfig.UseRecycleBinDeletedBackups = checkBoxUseRecycleBin.Checked;
+            this.appConfig.ShowBackupFailedWarning = checkBoxShowBackupFailedWarning.Checked;
 
             // auto backup and backup on database close
             this.appConfig.AutoDatabaseBackup = checkBoxAutoBackup.Checked;
@@ -97,11 +104,16 @@ namespace KPSimpleBackup
             this.Close();
         }
 
+        /// <summary>
+        /// Load the current plugins' configuration into the
+        /// settings form.
+        /// </summary>
         private void LoadValues()
         {
             checkBoxUseDbName.Checked = this.appConfig.UseDatabaseNameForBackupFiles;
             numericNumberOfBackups.Value = this.appConfig.FileAmountToKeep;
             checkBoxUseRecycleBin.Checked = this.appConfig.UseRecycleBinDeletedBackups;
+            checkBoxShowBackupFailedWarning.Checked = this.appConfig.ShowBackupFailedWarning;
 
             // auto backup and backup on database close
             checkBoxAutoBackup.Checked = this.appConfig.AutoDatabaseBackup;

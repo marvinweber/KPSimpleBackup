@@ -164,6 +164,12 @@ namespace KPSimpleBackup
                 if (warnings)
                 {
                     swLogger.SetText("KPSimpleBackup: Backup finished with warnings, consider checking the logs!", LogStatusType.Info);
+                    if (m_config.ShowBackupFailedWarning)
+                    {
+                        MessageService.ShowWarning(
+                            "KPSimpleBackup: Backup finished with warnings, check the logs for details!"
+                        );
+                    }
                 }
                 else
                 {

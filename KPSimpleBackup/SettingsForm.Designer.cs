@@ -66,7 +66,6 @@
             this.textBoxBackupFileEnding = new System.Windows.Forms.TextBox();
             this.checkBoxCustomFileEnding = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoBackup = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.checkBoxUseRecycleBin = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.linkLabelRessourcesOokiDialogsGitHub = new System.Windows.Forms.LinkLabel();
@@ -78,6 +77,7 @@
             this.buttonRelativeBackupPathAdd = new System.Windows.Forms.Button();
             this.buttonRelativeBackupPathHelp = new System.Windows.Forms.Button();
             this.textBoxRelativeBackupPath = new System.Windows.Forms.TextBox();
+            this.checkBoxShowBackupFailedWarning = new System.Windows.Forms.CheckBox();
             linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -305,7 +305,7 @@
             // checkBoxUseDbName
             // 
             this.checkBoxUseDbName.AutoSize = true;
-            this.checkBoxUseDbName.Location = new System.Drawing.Point(13, 59);
+            this.checkBoxUseDbName.Location = new System.Drawing.Point(13, 36);
             this.checkBoxUseDbName.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUseDbName.Name = "checkBoxUseDbName";
             this.checkBoxUseDbName.Size = new System.Drawing.Size(646, 21);
@@ -340,6 +340,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBoxShowBackupFailedWarning);
             this.tabPage2.Controls.Add(this.textBoxRelativeBackupPath);
             this.tabPage2.Controls.Add(this.buttonRelativeBackupPathHelp);
             this.tabPage2.Controls.Add(this.buttonRelativeBackupPathAdd);
@@ -358,7 +359,6 @@
             this.tabPage2.Controls.Add(this.textBoxBackupFileEnding);
             this.tabPage2.Controls.Add(this.checkBoxCustomFileEnding);
             this.tabPage2.Controls.Add(this.checkBoxAutoBackup);
-            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.checkBoxUseRecycleBin);
             this.tabPage2.Controls.Add(this.checkBoxUseDbName);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -509,7 +509,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 31);
+            this.label8.Location = new System.Drawing.Point(8, 8);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(249, 25);
@@ -563,7 +563,7 @@
             // checkBoxAutoBackup
             // 
             this.checkBoxAutoBackup.AutoSize = true;
-            this.checkBoxAutoBackup.Location = new System.Drawing.Point(13, 116);
+            this.checkBoxAutoBackup.Location = new System.Drawing.Point(13, 93);
             this.checkBoxAutoBackup.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAutoBackup.Name = "checkBoxAutoBackup";
             this.checkBoxAutoBackup.Size = new System.Drawing.Size(569, 21);
@@ -572,21 +572,10 @@
     ")";
             this.checkBoxAutoBackup.UseVisualStyleBackColor = true;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 4);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(532, 17);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "You should only change settings here, if you know what you are doing ;)";
-            // 
             // checkBoxUseRecycleBin
             // 
             this.checkBoxUseRecycleBin.AutoSize = true;
-            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(13, 88);
+            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(13, 65);
             this.checkBoxUseRecycleBin.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUseRecycleBin.Name = "checkBoxUseRecycleBin";
             this.checkBoxUseRecycleBin.Size = new System.Drawing.Size(651, 21);
@@ -715,6 +704,17 @@
             this.textBoxRelativeBackupPath.TabIndex = 27;
             this.textBoxRelativeBackupPath.TextChanged += new System.EventHandler(this.textBoxRelativeBackupPath_TextChanged);
             // 
+            // checkBoxShowBackupFailedWarning
+            // 
+            this.checkBoxShowBackupFailedWarning.AutoSize = true;
+            this.checkBoxShowBackupFailedWarning.Location = new System.Drawing.Point(13, 122);
+            this.checkBoxShowBackupFailedWarning.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxShowBackupFailedWarning.Name = "checkBoxShowBackupFailedWarning";
+            this.checkBoxShowBackupFailedWarning.Size = new System.Drawing.Size(544, 21);
+            this.checkBoxShowBackupFailedWarning.TabIndex = 28;
+            this.checkBoxShowBackupFailedWarning.Text = "Show a popup-warning, if the backup fails or problems occured during the backup";
+            this.checkBoxShowBackupFailedWarning.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -765,7 +765,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.CheckBox checkBoxUseRecycleBin;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBoxAutoBackup;
         private System.Windows.Forms.ListBox listBoxBackupPaths;
         private System.Windows.Forms.Button buttonRemoveSelectedFolder;
@@ -800,5 +799,6 @@
         private System.Windows.Forms.TextBox textBoxRelativeBackupPath;
         private System.Windows.Forms.Button buttonRelativeBackupPathHelp;
         private System.Windows.Forms.Button buttonRelativeBackupPathAdd;
+        private System.Windows.Forms.CheckBox checkBoxShowBackupFailedWarning;
     }
 }

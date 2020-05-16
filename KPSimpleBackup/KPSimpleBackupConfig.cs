@@ -10,7 +10,8 @@ namespace KPSimpleBackup
         private AceCustomConfig customConfig;
 
         // default config values
-        public static readonly string DEFAULT_BACKUP_FILE_EXTENSION = ".kdbx";
+        private static readonly string DEFAULT_BACKUP_FILE_EXTENSION = ".kdbx";
+        private static readonly bool DEFAULT_SHOW_BACKUP_FAILED_WARNING = true;
         private static readonly long DEFAULT_FILE_AMOUNT_TO_KEEP = 15;
         private static readonly bool DEFAULT_USE_DATABASE_NAMES_FOR_BACKUP_FILES = false;
         private static readonly bool DEFAULT_USE_RECYCLE_BIN_DELETED_BACKUPS = true;
@@ -36,6 +37,19 @@ namespace KPSimpleBackup
             {
                 List<String> paths = this.BackupPath;
                 return !(paths.Count == 0 || paths[0] == EMPTY_STRING);
+            }
+        }
+
+        public bool ShowBackupFailedWarning
+        {
+            get
+            {
+                return this.customConfig.GetBool("KPSimpleBackupConfig_showBackupFailedWarning", DEFAULT_SHOW_BACKUP_FAILED_WARNING);
+            }
+
+            set
+            {
+                this.customConfig.SetBool("KPSimpleBackupConfig_showBackupFailedWarning", value);
             }
         }
 
