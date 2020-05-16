@@ -283,9 +283,9 @@
             this.checkBoxBackupKeePassConfig.AutoSize = true;
             this.checkBoxBackupKeePassConfig.Location = new System.Drawing.Point(5, 3);
             this.checkBoxBackupKeePassConfig.Name = "checkBoxBackupKeePassConfig";
-            this.checkBoxBackupKeePassConfig.Size = new System.Drawing.Size(430, 21);
+            this.checkBoxBackupKeePassConfig.Size = new System.Drawing.Size(381, 21);
             this.checkBoxBackupKeePassConfig.TabIndex = 0;
-            this.checkBoxBackupKeePassConfig.Text = "Backup KeePass configuration file (KeePass.config.xml) - BETA";
+            this.checkBoxBackupKeePassConfig.Text = "Backup KeePass configuration file (KeePass.config.xml)";
             this.checkBoxBackupKeePassConfig.UseVisualStyleBackColor = true;
             // 
             // buttonSave
