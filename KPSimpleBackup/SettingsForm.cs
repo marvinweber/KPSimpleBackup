@@ -166,7 +166,7 @@ namespace KPSimpleBackup
 
         private void linkLabelReportBug_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/weberonede/KPSimpleBackup/issues");
+            System.Diagnostics.Process.Start("https://github.com/marvinweber/KPSimpleBackup/issues");
         }
 
         private void LinkLabelRessourcesOokiDialogsWebsite_MouseClick(object sender, MouseEventArgs e)
