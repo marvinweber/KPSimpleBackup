@@ -209,5 +209,37 @@ namespace KPSimpleBackup
             numericUpDownLtbMonthly.Enabled = enabled;
             numericUpDownLtbYearly.Enabled = enabled;
         }
+
+        private void buttonRelativeBackupPathHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/marvinweber/KPSimpleBackup/wiki/User-Documentation#relative-backup-path");
+        }
+
+        /// <summary>
+        /// Handler for changes of the textbox to add relative backup
+        /// paths. The button to add a relative path will be disabled/
+        /// enabled depending on whether the textbox is empty or not.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxRelativeBackupPath_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            buttonRelativeBackupPathAdd.Enabled = textBox != null && textBox.TextLength > 0;
+        }
+
+        /// <summary>
+        /// Handler for the button to add a new relative backup path.
+        /// Add the relative path to the selected paths and clear the
+        /// input textbox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonRelativeBackupPathAdd_Click(object sender, EventArgs e)
+        {
+            string path = textBoxRelativeBackupPath.Text;
+            listBoxBackupPaths.Items.Add(path);
+            textBoxRelativeBackupPath.Clear();
+        }
     }
 }

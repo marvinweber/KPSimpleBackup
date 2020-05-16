@@ -75,6 +75,9 @@
             this.linkLabelReportBug = new System.Windows.Forms.LinkLabel();
             this.labelVersion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonRelativeBackupPathAdd = new System.Windows.Forms.Button();
+            this.buttonRelativeBackupPathHelp = new System.Windows.Forms.Button();
+            this.textBoxRelativeBackupPath = new System.Windows.Forms.TextBox();
             linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -302,7 +305,7 @@
             // checkBoxUseDbName
             // 
             this.checkBoxUseDbName.AutoSize = true;
-            this.checkBoxUseDbName.Location = new System.Drawing.Point(13, 81);
+            this.checkBoxUseDbName.Location = new System.Drawing.Point(13, 59);
             this.checkBoxUseDbName.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUseDbName.Name = "checkBoxUseDbName";
             this.checkBoxUseDbName.Size = new System.Drawing.Size(646, 21);
@@ -337,6 +340,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.textBoxRelativeBackupPath);
+            this.tabPage2.Controls.Add(this.buttonRelativeBackupPathHelp);
+            this.tabPage2.Controls.Add(this.buttonRelativeBackupPathAdd);
             this.tabPage2.Controls.Add(this.numericUpDownLtbYearly);
             this.tabPage2.Controls.Add(this.numericUpDownLtbMonthly);
             this.tabPage2.Controls.Add(this.numericUpDownLtbWeekly);
@@ -492,7 +498,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(8, 183);
+            this.label9.Location = new System.Drawing.Point(8, 161);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(270, 25);
@@ -503,7 +509,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 53);
+            this.label8.Location = new System.Drawing.Point(8, 31);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(249, 25);
@@ -525,7 +531,7 @@
             // checkBoxBackupOnDbClose
             // 
             this.checkBoxBackupOnDbClose.AutoSize = true;
-            this.checkBoxBackupOnDbClose.Location = new System.Drawing.Point(13, 240);
+            this.checkBoxBackupOnDbClose.Location = new System.Drawing.Point(13, 218);
             this.checkBoxBackupOnDbClose.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxBackupOnDbClose.Name = "checkBoxBackupOnDbClose";
             this.checkBoxBackupOnDbClose.Size = new System.Drawing.Size(592, 21);
@@ -536,7 +542,7 @@
             // 
             // textBoxBackupFileEnding
             // 
-            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(420, 208);
+            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(410, 189);
             this.textBoxBackupFileEnding.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxBackupFileEnding.Name = "textBoxBackupFileEnding";
             this.textBoxBackupFileEnding.Size = new System.Drawing.Size(192, 22);
@@ -545,7 +551,7 @@
             // checkBoxCustomFileEnding
             // 
             this.checkBoxCustomFileEnding.AutoSize = true;
-            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(13, 212);
+            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(13, 190);
             this.checkBoxCustomFileEnding.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxCustomFileEnding.Name = "checkBoxCustomFileEnding";
             this.checkBoxCustomFileEnding.Size = new System.Drawing.Size(398, 21);
@@ -557,7 +563,7 @@
             // checkBoxAutoBackup
             // 
             this.checkBoxAutoBackup.AutoSize = true;
-            this.checkBoxAutoBackup.Location = new System.Drawing.Point(13, 138);
+            this.checkBoxAutoBackup.Location = new System.Drawing.Point(13, 116);
             this.checkBoxAutoBackup.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxAutoBackup.Name = "checkBoxAutoBackup";
             this.checkBoxAutoBackup.Size = new System.Drawing.Size(569, 21);
@@ -580,7 +586,7 @@
             // checkBoxUseRecycleBin
             // 
             this.checkBoxUseRecycleBin.AutoSize = true;
-            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(13, 110);
+            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(13, 88);
             this.checkBoxUseRecycleBin.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxUseRecycleBin.Name = "checkBoxUseRecycleBin";
             this.checkBoxUseRecycleBin.Size = new System.Drawing.Size(651, 21);
@@ -677,6 +683,38 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "KPSimpleBackup";
             // 
+            // buttonRelativeBackupPathAdd
+            // 
+            this.buttonRelativeBackupPathAdd.Enabled = false;
+            this.buttonRelativeBackupPathAdd.Location = new System.Drawing.Point(311, 247);
+            this.buttonRelativeBackupPathAdd.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRelativeBackupPathAdd.Name = "buttonRelativeBackupPathAdd";
+            this.buttonRelativeBackupPathAdd.Size = new System.Drawing.Size(188, 26);
+            this.buttonRelativeBackupPathAdd.TabIndex = 25;
+            this.buttonRelativeBackupPathAdd.Text = "Add relative backup path";
+            this.buttonRelativeBackupPathAdd.UseVisualStyleBackColor = true;
+            this.buttonRelativeBackupPathAdd.Click += new System.EventHandler(this.buttonRelativeBackupPathAdd_Click);
+            // 
+            // buttonRelativeBackupPathHelp
+            // 
+            this.buttonRelativeBackupPathHelp.Location = new System.Drawing.Point(507, 247);
+            this.buttonRelativeBackupPathHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRelativeBackupPathHelp.Name = "buttonRelativeBackupPathHelp";
+            this.buttonRelativeBackupPathHelp.Size = new System.Drawing.Size(29, 26);
+            this.buttonRelativeBackupPathHelp.TabIndex = 26;
+            this.buttonRelativeBackupPathHelp.Text = "?";
+            this.buttonRelativeBackupPathHelp.UseVisualStyleBackColor = true;
+            this.buttonRelativeBackupPathHelp.Click += new System.EventHandler(this.buttonRelativeBackupPathHelp_Click);
+            // 
+            // textBoxRelativeBackupPath
+            // 
+            this.textBoxRelativeBackupPath.Location = new System.Drawing.Point(13, 249);
+            this.textBoxRelativeBackupPath.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxRelativeBackupPath.Name = "textBoxRelativeBackupPath";
+            this.textBoxRelativeBackupPath.Size = new System.Drawing.Size(290, 22);
+            this.textBoxRelativeBackupPath.TabIndex = 27;
+            this.textBoxRelativeBackupPath.TextChanged += new System.EventHandler(this.textBoxRelativeBackupPath_TextChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -759,5 +797,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.CheckBox checkBoxBackupKeePassConfig;
+        private System.Windows.Forms.TextBox textBoxRelativeBackupPath;
+        private System.Windows.Forms.Button buttonRelativeBackupPathHelp;
+        private System.Windows.Forms.Button buttonRelativeBackupPathAdd;
     }
 }
