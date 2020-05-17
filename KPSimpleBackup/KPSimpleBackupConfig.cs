@@ -12,6 +12,7 @@ namespace KPSimpleBackup
         // default config values
         private static readonly string DEFAULT_BACKUP_FILE_EXTENSION = ".kdbx";
         private static readonly bool DEFAULT_SHOW_BACKUP_FAILED_WARNING = true;
+        private static readonly bool DEFAULT_LOG_TO_FILE = false;
         private static readonly long DEFAULT_FILE_AMOUNT_TO_KEEP = 15;
         private static readonly bool DEFAULT_USE_DATABASE_NAMES_FOR_BACKUP_FILES = false;
         private static readonly bool DEFAULT_USE_RECYCLE_BIN_DELETED_BACKUPS = true;
@@ -50,6 +51,19 @@ namespace KPSimpleBackup
             set
             {
                 this.customConfig.SetBool("KPSimpleBackupConfig_showBackupFailedWarning", value);
+            }
+        }
+
+        public bool LogToFile
+        {
+            get
+            {
+                return this.customConfig.GetBool("KPSimpleBackupConfig_logToFile", DEFAULT_LOG_TO_FILE);
+            }
+
+            set
+            {
+                this.customConfig.SetBool("KPSimpleBackupConfig_logToFile", value);
             }
         }
 

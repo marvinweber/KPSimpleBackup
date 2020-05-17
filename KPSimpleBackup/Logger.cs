@@ -1,52 +1,30 @@
 ﻿using KeePassLib.Interfaces;
+using KeePassLib.Utility;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace KPSimpleBackup
 {
-    public class Logger : IStatusLogger
+    public class Logger
     {
-        private KPSimpleBackupConfig config;
+        private const string LOG_FILE_NAME = "kpsimplebackup.log.txt";
+
         private List<string> currentLog;
-        private string currentOperation;
-        private bool writeOperationToLog;
+        private StreamWriter streamWriter;
+        private bool writeToFile;
 
-        public Logger(KPSimpleBackupConfig config)
+        public Logger(bool writeToFile)
         {
-            this.config = config;
-            this.currentLog = new List<string>();
-        }
+            currentLog = new List<string>();
 
-        public bool ContinueWork()
-        {
-            this.StoreLine("OPERATION CONTINUED WORK!");
-            return true;
-        }
-
-        public void EndLogging()
-        {
-            this.StoreLine("OPERATION FINISHED: " + this.currentOperation);
-            this.currentOperation = "";
-            this.writeOperationToLog = false;
-        }
-
-        public bool SetProgress(uint uPercent)
-        {
-            this.StoreLine("New Progress: " + uPercent);
-            return true;
-        }
-
-        public bool SetText(string strNewText, LogStatusType lsType)
-        {
-            this.StoreLine(strNewText);
-            return true;
-        }
-
-        public void StartLogging(string strOperation, bool bWriteOperationToLog)
-        {
-            this.writeOperationToLog = bWriteOperationToLog;
-            this.currentOperation = strOperation;
-            this.StoreLine("OPERATION STARTED: " + this.currentOperation);
+            this.writeToFile = writeToFile;
+            if (writeToFile)
+            {
+                string path = UrlUtil.EnsureTerminatingSeparator(KeePass.App.Configuration.AppConfigSerializer.AppDataDirectory, false);
+                Directory.CreateDirectory(path);
+                streamWriter = File.AppendText(path + LOG_FILE_NAME);
+            }
         }
 
         public List<string> GetLog()
@@ -63,12 +41,27 @@ namespace KPSimpleBackup
         /// <param name="lsType">Status Type</param>
         public void Log(string text, LogStatusType lsType)
         {
-            this.StoreLine("[KPSimpleBackup] [" + lsType + "] " + text);
+            StoreLine("[KPSimpleBackup] [" + lsType + "] " + text);
         }
 
-        private void StoreLine(string line)
+        public void Terminate()
         {
-            this.currentLog.Add("[" + DateTime.Now.ToString() + "] " + line);
+            if (writeToFile)
+            {
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+        }
+
+        private void StoreLine(string text)
+        {
+            string line = "[" + DateTime.Now.ToString() + "] " + text;
+
+            currentLog.Add(line);
+            if (writeToFile)
+            {
+                streamWriter.WriteLine(line);
+            }
         }
     }
 }

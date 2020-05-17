@@ -12,7 +12,7 @@ namespace KPSimpleBackup
     {
         private IPluginHost m_host = null;
         private KPSimpleBackupConfig m_config = null;
-        private Logger m_logger = null;
+        private Logger m_PluginLogger = null;
 
         public override bool Initialize(IPluginHost host)
         {
@@ -20,10 +20,10 @@ namespace KPSimpleBackup
 
             m_host = host;
             m_config = new KPSimpleBackupConfig(m_host.CustomConfig);
-            m_logger = new Logger(m_config);
+            m_PluginLogger = new Logger(m_config.LogToFile);
 
             BackupManager.SetConfig(m_config);
-            BackupManager.SetPluginLogger(m_logger);
+            BackupManager.SetPluginLogger(m_PluginLogger);
 
             // add backup action event handlers for when db is being saved and closed
             m_host.MainWindow.FileSaved += this.OnDatabaseSaveAction;
@@ -38,6 +38,8 @@ namespace KPSimpleBackup
             // Remove event handler
             m_host.MainWindow.FileSaved -= this.OnDatabaseSaveAction;
             m_host.MainWindow.FileClosingPost -= this.OnDatabaseCloseAction;
+
+            m_PluginLogger.Terminate();
         }
 
         public override string UpdateUrl
@@ -90,7 +92,7 @@ namespace KPSimpleBackup
 
         private void OnMenuShowLog(object sender, EventArgs e)
         {
-            LogForm logForm = new LogForm(this.m_logger);
+            LogForm logForm = new LogForm(this.m_PluginLogger);
             logForm.ShowDialog();
             logForm.Dispose();
         }
@@ -142,7 +144,7 @@ namespace KPSimpleBackup
 
                 BackupManager.SetKPMainWindowSwLogger(swLogger);
                 swLogger.SetText("KPSimpleBackup: Backup started...", LogStatusType.Info);
-                m_logger.Log("KPSimpleBackup: Backup started...", LogStatusType.Info);
+                m_PluginLogger.Log("KPSimpleBackup: Backup started...", LogStatusType.Info);
 
                 BasicBackupManager basicBackupManager = new BasicBackupManager(database);
                 warnings = ! basicBackupManager.Run() || warnings;
@@ -181,13 +183,13 @@ namespace KPSimpleBackup
                 swLogger.EndLogging();
                 swLogger.SetText("KPSimpleBackup: Backup failed, see logs for details!", LogStatusType.Error);
 
-                m_logger.Log("Could not backup database! Error:", LogStatusType.Error);
-                m_logger.Log(e.ToString(), LogStatusType.Error);
+                m_PluginLogger.Log("Could not backup database! Error:", LogStatusType.Error);
+                m_PluginLogger.Log(e.ToString(), LogStatusType.Error);
             }
             finally
             {
                 m_host.MainWindow.UIBlockInteraction(false);
-                m_logger.Log("KPSimpleBackup: Finished", LogStatusType.Info);
+                m_PluginLogger.Log("KPSimpleBackup: Finished", LogStatusType.Info);
             }
         }
     }
