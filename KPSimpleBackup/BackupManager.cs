@@ -85,7 +85,10 @@ namespace KPSimpleBackup
                 try
                 {
                     // ensure (possible stored) relative path is converted to an absolute one
-                    basePath = UrlUtil.EnsureTerminatingSeparator(UrlUtil.GetShortestAbsolutePath(backupFolderPath), false);
+                    basePath = UrlUtil.EnsureTerminatingSeparator(
+                        UrlUtil.MakeAbsolutePath(database.IOConnectionInfo.Path, backupFolderPath),
+                        false
+                    );
                     pluginLogger.Log("Backup to next path: " + basePath, LogStatusType.Info);
 
                     PreBackup();
