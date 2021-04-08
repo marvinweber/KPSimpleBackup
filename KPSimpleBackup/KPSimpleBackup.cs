@@ -27,7 +27,7 @@ namespace KPSimpleBackup
 
             // add backup action event handlers for when db is being saved and closed
             m_host.MainWindow.FileSaved += this.OnDatabaseSaveAction;
-            m_host.MainWindow.FileClosingPre += this.OnDatabaseCloseAction;
+            m_host.MainWindow.FileClosingPost += this.OnDatabaseCloseAction;
 
             // initialization successful
             return true;
