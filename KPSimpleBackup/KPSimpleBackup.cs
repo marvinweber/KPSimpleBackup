@@ -13,6 +13,12 @@ namespace KPSimpleBackup
         private IPluginHost m_host = null;
         private KPSimpleBackupConfig m_config = null;
         private Logger m_PluginLogger = null;
+        
+        /// <summary>
+        /// This flag keeps track of whether the database has been modified
+        /// since the last backup, or not.
+        /// </summary>
+        private bool m_databaseModifiedAfterLastBackup = false;
 
         public override bool Initialize(IPluginHost host)
         {
@@ -25,7 +31,8 @@ namespace KPSimpleBackup
             BackupManager.SetConfig(m_config);
             BackupManager.SetPluginLogger(m_PluginLogger);
 
-            // add backup action event handlers for when db is being saved and closed
+            // add handler for KeePass events this plugin reacts to (file saving, closing, etc.)
+            m_host.MainWindow.FileSaving += this.OnDatabaseSavingPreAction;
             m_host.MainWindow.FileSaved += this.OnDatabaseSaveAction;
             m_host.MainWindow.FileClosingPost += this.OnDatabaseCloseAction;
 
@@ -35,7 +42,8 @@ namespace KPSimpleBackup
 
         public override void Terminate()
         {
-            // Remove event handler
+            // Remove event handlers
+            m_host.MainWindow.FileSaving -= this.OnDatabaseSavingPreAction;
             m_host.MainWindow.FileSaved -= this.OnDatabaseSaveAction;
             m_host.MainWindow.FileClosingPost -= this.OnDatabaseCloseAction;
 
@@ -97,6 +105,18 @@ namespace KPSimpleBackup
             logForm.Dispose();
         }
 
+        /// <summary>
+        /// Handler to be called before the KeePass Database is saved. It checks
+        /// whether the database has been modified and updates the internal flag
+        /// of this class accordingly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDatabaseSavingPreAction(object sender, FileSavingEventArgs e)
+        {
+            m_databaseModifiedAfterLastBackup = m_databaseModifiedAfterLastBackup || e.Database.Modified;
+        }
+
         private void OnDatabaseSaveAction(object sender, FileSavedEventArgs e)
         {
             // only create backup if auto-backup is enabled
@@ -106,10 +126,25 @@ namespace KPSimpleBackup
             }
         }
 
+        /// <summary>
+        /// Handler to be called whenever the database is closed (i.e., it is called
+        /// when the database is locked, closed or KeePass is closed).
+        /// If enabled by the user ("backup-on-close") and the database is opened and
+        /// modified (or was modified and saved after the last backup), a backup will
+        /// be triggered.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">File closing event containing the database object</param>
         private void OnDatabaseCloseAction(object sender, FileClosingEventArgs e)
         {
-            if (this.m_config.BackupOnDbClose && e.Database.IsOpen)
-            {
+            // perform backup if "backup-on-close" is configured and database is opened
+            // and modified (or was modified and saved since the last backup) as well
+            // (prevent backups of unmodified database)
+            if (
+                this.m_config.BackupOnDbClose &&
+                e.Database.IsOpen &&
+                (e.Database.Modified || m_databaseModifiedAfterLastBackup)
+            ) {
                 this.BackupAction(e.Database);
             }
         }
@@ -155,6 +190,9 @@ namespace KPSimpleBackup
                     LongTermBackupManager ltbManager = new LongTermBackupManager(database);
                     warnings = ! ltbManager.Run() || warnings;
                 }
+
+                // reset database modified property, as an up-to-date backup has now been created
+                m_databaseModifiedAfterLastBackup = false;
 
                 // backup KeePass configuration if enabled in settings
                 if (m_config.BackupKeePassConfig)
