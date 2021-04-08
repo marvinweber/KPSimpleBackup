@@ -193,6 +193,10 @@ namespace KPSimpleBackup
                 if (m_config.UseLongTermBackup)
                 {
                     LongTermBackupManager ltbManager = new LongTermBackupManager(database);
+                    if (basicBackupManager.lastBackupFilePath != null)
+                    {
+                        ltbManager.SetTempDatabaseBackupFile(basicBackupManager.lastBackupFilePath);
+                    }
                     warnings = ! ltbManager.Run() || warnings;
                 }
 

@@ -45,11 +45,6 @@ namespace KPSimpleBackup
             }
         }
 
-        protected override void Cleanup()
-        {
-            //
-        }
-
         /// <summary>
         /// Get User configuration path used by the main
         /// KeePass application to store the configuration file

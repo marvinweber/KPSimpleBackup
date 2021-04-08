@@ -67,15 +67,17 @@ namespace KPSimpleBackup
                 pathYearly
             };
 
-            // perform backup for all files
-            foreach (string fileInfo in backupPaths)
+            // perform backup for all files (i.e., LTB locations)
+            foreach (string backupPath in backupPaths)
             {
-                SavePwDatabaseToPath(fileInfo);
+                CopyPwDatabaseFileToPath(backupPath);
             }
         }
 
         protected override void Cleanup()
         {
+            base.Cleanup();
+
             string searchPattern = dbFileName + "_*" + dbFileExtension;
             RecycleOption recycleOption = config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
 
