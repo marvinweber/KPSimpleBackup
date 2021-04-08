@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using KeePass.Forms;
 using KeePass.Plugins;
@@ -171,6 +172,10 @@ namespace KPSimpleBackup
                 return;
             }
 
+            // start stopwatch to measure time needed for the backup
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             IStatusLogger swLogger = this.m_host.MainWindow.CreateShowWarningsLogger();
             try
             {
@@ -227,7 +232,8 @@ namespace KPSimpleBackup
             finally
             {
                 m_host.MainWindow.UIBlockInteraction(false);
-                m_PluginLogger.Log("KPSimpleBackup: Finished", LogStatusType.Info);
+                stopWatch.Stop();
+                m_PluginLogger.Log("KPSimpleBackup: Finished in " + stopWatch.ElapsedMilliseconds + " ms.", LogStatusType.Info);
             }
         }
     }
