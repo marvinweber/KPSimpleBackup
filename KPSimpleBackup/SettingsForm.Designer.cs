@@ -51,6 +51,10 @@
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowBackupFailedWarning = new System.Windows.Forms.CheckBox();
+            this.textBoxRelativeBackupPath = new System.Windows.Forms.TextBox();
+            this.buttonRelativeBackupPathHelp = new System.Windows.Forms.Button();
+            this.buttonRelativeBackupPathAdd = new System.Windows.Forms.Button();
             this.numericUpDownLtbYearly = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownLtbMonthly = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownLtbWeekly = new System.Windows.Forms.NumericUpDown();
@@ -74,10 +78,6 @@
             this.linkLabelReportBug = new System.Windows.Forms.LinkLabel();
             this.labelVersion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonRelativeBackupPathAdd = new System.Windows.Forms.Button();
-            this.buttonRelativeBackupPathHelp = new System.Windows.Forms.Button();
-            this.textBoxRelativeBackupPath = new System.Windows.Forms.TextBox();
-            this.checkBoxShowBackupFailedWarning = new System.Windows.Forms.CheckBox();
             linkLabelRessourcesOokiDialogsWebsite = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -99,10 +99,9 @@
             linkLabelRessourcesOokiDialogsWebsite.ActiveLinkColor = System.Drawing.Color.DarkRed;
             linkLabelRessourcesOokiDialogsWebsite.AutoSize = true;
             linkLabelRessourcesOokiDialogsWebsite.LinkColor = System.Drawing.Color.DarkRed;
-            linkLabelRessourcesOokiDialogsWebsite.Location = new System.Drawing.Point(72, 204);
-            linkLabelRessourcesOokiDialogsWebsite.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            linkLabelRessourcesOokiDialogsWebsite.Location = new System.Drawing.Point(54, 166);
             linkLabelRessourcesOokiDialogsWebsite.Name = "linkLabelRessourcesOokiDialogsWebsite";
-            linkLabelRessourcesOokiDialogsWebsite.Size = new System.Drawing.Size(59, 17);
+            linkLabelRessourcesOokiDialogsWebsite.Size = new System.Drawing.Size(46, 13);
             linkLabelRessourcesOokiDialogsWebsite.TabIndex = 6;
             linkLabelRessourcesOokiDialogsWebsite.TabStop = true;
             linkLabelRessourcesOokiDialogsWebsite.Text = "Website";
@@ -111,10 +110,9 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Location = new System.Drawing.Point(8, 7);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(844, 490);
+            this.panel1.Size = new System.Drawing.Size(633, 398);
             this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -132,57 +130,55 @@
             this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 3);
             this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 4);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(836, 482);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(627, 392);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(5, 413);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 12, 4, 0);
+            this.label15.Location = new System.Drawing.Point(4, 336);
+            this.label15.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(127, 17);
+            this.label15.Size = new System.Drawing.Size(95, 13);
             this.label15.TabIndex = 8;
             this.label15.Text = "Additional settings:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 7);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 0);
+            this.label1.Location = new System.Drawing.Point(4, 6);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(186, 17);
+            this.label1.Size = new System.Drawing.Size(142, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Number of backups to keep:";
             // 
             // numericNumberOfBackups
             // 
-            this.numericNumberOfBackups.Location = new System.Drawing.Point(236, 5);
-            this.numericNumberOfBackups.Margin = new System.Windows.Forms.Padding(4);
+            this.numericNumberOfBackups.Location = new System.Drawing.Point(177, 4);
             this.numericNumberOfBackups.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.numericNumberOfBackups.Name = "numericNumberOfBackups";
-            this.numericNumberOfBackups.Size = new System.Drawing.Size(148, 22);
+            this.numericNumberOfBackups.Size = new System.Drawing.Size(111, 20);
             this.numericNumberOfBackups.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 50);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 18, 4, 0);
+            this.label2.Location = new System.Drawing.Point(4, 43);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 17);
+            this.label2.Size = new System.Drawing.Size(114, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Folder for backup files:";
             // 
@@ -191,19 +187,17 @@
             this.panel2.Controls.Add(this.buttonRemoveSelectedFolder);
             this.panel2.Controls.Add(this.listBoxBackupPaths);
             this.panel2.Controls.Add(this.buttonAddFolder);
-            this.panel2.Location = new System.Drawing.Point(236, 36);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Location = new System.Drawing.Point(177, 31);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(595, 316);
+            this.panel2.Size = new System.Drawing.Size(446, 255);
             this.panel2.TabIndex = 4;
             // 
             // buttonRemoveSelectedFolder
             // 
             this.buttonRemoveSelectedFolder.Enabled = false;
-            this.buttonRemoveSelectedFolder.Location = new System.Drawing.Point(407, 4);
-            this.buttonRemoveSelectedFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRemoveSelectedFolder.Location = new System.Drawing.Point(305, 3);
             this.buttonRemoveSelectedFolder.Name = "buttonRemoveSelectedFolder";
-            this.buttonRemoveSelectedFolder.Size = new System.Drawing.Size(184, 28);
+            this.buttonRemoveSelectedFolder.Size = new System.Drawing.Size(138, 23);
             this.buttonRemoveSelectedFolder.TabIndex = 5;
             this.buttonRemoveSelectedFolder.Text = "Remove selected folder";
             this.buttonRemoveSelectedFolder.UseVisualStyleBackColor = true;
@@ -213,21 +207,18 @@
             // 
             this.listBoxBackupPaths.FormattingEnabled = true;
             this.listBoxBackupPaths.HorizontalScrollbar = true;
-            this.listBoxBackupPaths.ItemHeight = 16;
-            this.listBoxBackupPaths.Location = new System.Drawing.Point(4, 37);
-            this.listBoxBackupPaths.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxBackupPaths.Location = new System.Drawing.Point(3, 30);
             this.listBoxBackupPaths.Name = "listBoxBackupPaths";
             this.listBoxBackupPaths.ScrollAlwaysVisible = true;
-            this.listBoxBackupPaths.Size = new System.Drawing.Size(585, 276);
+            this.listBoxBackupPaths.Size = new System.Drawing.Size(440, 225);
             this.listBoxBackupPaths.TabIndex = 4;
             this.listBoxBackupPaths.SelectedIndexChanged += new System.EventHandler(this.listBoxBackupPaths_SelectedIndexChanged);
             // 
             // buttonAddFolder
             // 
-            this.buttonAddFolder.Location = new System.Drawing.Point(4, 4);
-            this.buttonAddFolder.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonAddFolder.Location = new System.Drawing.Point(3, 3);
             this.buttonAddFolder.Name = "buttonAddFolder";
-            this.buttonAddFolder.Size = new System.Drawing.Size(100, 28);
+            this.buttonAddFolder.Size = new System.Drawing.Size(75, 23);
             this.buttonAddFolder.TabIndex = 2;
             this.buttonAddFolder.Text = "Add folder";
             this.buttonAddFolder.UseVisualStyleBackColor = true;
@@ -236,10 +227,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(5, 369);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 12, 4, 0);
+            this.label5.Location = new System.Drawing.Point(4, 300);
+            this.label5.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 17);
+            this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 6;
             this.label5.Text = "Date format:";
             // 
@@ -247,18 +238,16 @@
             // 
             this.panel3.Controls.Add(this.buttonDateFormatHelp);
             this.panel3.Controls.Add(this.textBoxDateFormat);
-            this.panel3.Location = new System.Drawing.Point(236, 361);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4);
+            this.panel3.Location = new System.Drawing.Point(177, 293);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(327, 35);
+            this.panel3.Size = new System.Drawing.Size(245, 28);
             this.panel3.TabIndex = 7;
             // 
             // buttonDateFormatHelp
             // 
-            this.buttonDateFormatHelp.Location = new System.Drawing.Point(292, 5);
-            this.buttonDateFormatHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDateFormatHelp.Location = new System.Drawing.Point(219, 4);
             this.buttonDateFormatHelp.Name = "buttonDateFormatHelp";
-            this.buttonDateFormatHelp.Size = new System.Drawing.Size(27, 25);
+            this.buttonDateFormatHelp.Size = new System.Drawing.Size(20, 20);
             this.buttonDateFormatHelp.TabIndex = 1;
             this.buttonDateFormatHelp.Text = "?";
             this.buttonDateFormatHelp.UseVisualStyleBackColor = true;
@@ -266,37 +255,37 @@
             // 
             // textBoxDateFormat
             // 
-            this.textBoxDateFormat.Location = new System.Drawing.Point(4, 5);
-            this.textBoxDateFormat.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxDateFormat.Location = new System.Drawing.Point(3, 4);
             this.textBoxDateFormat.Name = "textBoxDateFormat";
-            this.textBoxDateFormat.Size = new System.Drawing.Size(279, 22);
+            this.textBoxDateFormat.Size = new System.Drawing.Size(210, 20);
             this.textBoxDateFormat.TabIndex = 0;
             this.textBoxDateFormat.TextChanged += new System.EventHandler(this.textBoxDateFormat_TextChanged);
             // 
             // panel4
             // 
             this.panel4.Controls.Add(this.checkBoxBackupKeePassConfig);
-            this.panel4.Location = new System.Drawing.Point(235, 404);
+            this.panel4.Location = new System.Drawing.Point(176, 328);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(597, 74);
+            this.panel4.Size = new System.Drawing.Size(448, 60);
             this.panel4.TabIndex = 9;
             // 
             // checkBoxBackupKeePassConfig
             // 
             this.checkBoxBackupKeePassConfig.AutoSize = true;
-            this.checkBoxBackupKeePassConfig.Location = new System.Drawing.Point(5, 3);
+            this.checkBoxBackupKeePassConfig.Location = new System.Drawing.Point(4, 2);
+            this.checkBoxBackupKeePassConfig.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxBackupKeePassConfig.Name = "checkBoxBackupKeePassConfig";
-            this.checkBoxBackupKeePassConfig.Size = new System.Drawing.Size(381, 21);
+            this.checkBoxBackupKeePassConfig.Size = new System.Drawing.Size(289, 17);
             this.checkBoxBackupKeePassConfig.TabIndex = 0;
             this.checkBoxBackupKeePassConfig.Text = "Backup KeePass configuration file (KeePass.config.xml)";
             this.checkBoxBackupKeePassConfig.UseVisualStyleBackColor = true;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(783, 559);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSave.Location = new System.Drawing.Point(587, 454);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(100, 28);
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 2;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -305,10 +294,9 @@
             // checkBoxUseDbName
             // 
             this.checkBoxUseDbName.AutoSize = true;
-            this.checkBoxUseDbName.Location = new System.Drawing.Point(13, 36);
-            this.checkBoxUseDbName.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxUseDbName.Location = new System.Drawing.Point(10, 29);
             this.checkBoxUseDbName.Name = "checkBoxUseDbName";
-            this.checkBoxUseDbName.Size = new System.Drawing.Size(646, 21);
+            this.checkBoxUseDbName.Size = new System.Drawing.Size(483, 17);
             this.checkBoxUseDbName.TabIndex = 7;
             this.checkBoxUseDbName.Text = "Use database name (File -> Database-Settings -> Name) instead of file name as bac" +
     "kup file name";
@@ -319,21 +307,19 @@
             this.tabControlSettings.Controls.Add(this.tabPage1);
             this.tabControlSettings.Controls.Add(this.tabPage2);
             this.tabControlSettings.Controls.Add(this.tabPage3);
-            this.tabControlSettings.Location = new System.Drawing.Point(16, 15);
-            this.tabControlSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControlSettings.Location = new System.Drawing.Point(12, 12);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(867, 537);
+            this.tabControlSettings.Size = new System.Drawing.Size(650, 436);
             this.tabControlSettings.TabIndex = 1;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(859, 508);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Size = new System.Drawing.Size(642, 410);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -361,19 +347,56 @@
             this.tabPage2.Controls.Add(this.checkBoxAutoBackup);
             this.tabPage2.Controls.Add(this.checkBoxUseRecycleBin);
             this.tabPage2.Controls.Add(this.checkBoxUseDbName);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(859, 508);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Size = new System.Drawing.Size(642, 410);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // checkBoxShowBackupFailedWarning
+            // 
+            this.checkBoxShowBackupFailedWarning.AutoSize = true;
+            this.checkBoxShowBackupFailedWarning.Location = new System.Drawing.Point(10, 99);
+            this.checkBoxShowBackupFailedWarning.Name = "checkBoxShowBackupFailedWarning";
+            this.checkBoxShowBackupFailedWarning.Size = new System.Drawing.Size(412, 17);
+            this.checkBoxShowBackupFailedWarning.TabIndex = 28;
+            this.checkBoxShowBackupFailedWarning.Text = "Show a popup-warning, if the backup fails or problems occured during the backup";
+            this.checkBoxShowBackupFailedWarning.UseVisualStyleBackColor = true;
+            // 
+            // textBoxRelativeBackupPath
+            // 
+            this.textBoxRelativeBackupPath.Location = new System.Drawing.Point(10, 202);
+            this.textBoxRelativeBackupPath.Name = "textBoxRelativeBackupPath";
+            this.textBoxRelativeBackupPath.Size = new System.Drawing.Size(218, 20);
+            this.textBoxRelativeBackupPath.TabIndex = 27;
+            this.textBoxRelativeBackupPath.TextChanged += new System.EventHandler(this.textBoxRelativeBackupPath_TextChanged);
+            // 
+            // buttonRelativeBackupPathHelp
+            // 
+            this.buttonRelativeBackupPathHelp.Location = new System.Drawing.Point(380, 201);
+            this.buttonRelativeBackupPathHelp.Name = "buttonRelativeBackupPathHelp";
+            this.buttonRelativeBackupPathHelp.Size = new System.Drawing.Size(22, 21);
+            this.buttonRelativeBackupPathHelp.TabIndex = 26;
+            this.buttonRelativeBackupPathHelp.Text = "?";
+            this.buttonRelativeBackupPathHelp.UseVisualStyleBackColor = true;
+            this.buttonRelativeBackupPathHelp.Click += new System.EventHandler(this.buttonRelativeBackupPathHelp_Click);
+            // 
+            // buttonRelativeBackupPathAdd
+            // 
+            this.buttonRelativeBackupPathAdd.Enabled = false;
+            this.buttonRelativeBackupPathAdd.Location = new System.Drawing.Point(233, 201);
+            this.buttonRelativeBackupPathAdd.Name = "buttonRelativeBackupPathAdd";
+            this.buttonRelativeBackupPathAdd.Size = new System.Drawing.Size(141, 21);
+            this.buttonRelativeBackupPathAdd.TabIndex = 25;
+            this.buttonRelativeBackupPathAdd.Text = "Add relative backup path";
+            this.buttonRelativeBackupPathAdd.UseVisualStyleBackColor = true;
+            this.buttonRelativeBackupPathAdd.Click += new System.EventHandler(this.buttonRelativeBackupPathAdd_Click);
+            // 
             // numericUpDownLtbYearly
             // 
-            this.numericUpDownLtbYearly.Location = new System.Drawing.Point(351, 469);
-            this.numericUpDownLtbYearly.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDownLtbYearly.Location = new System.Drawing.Point(263, 381);
             this.numericUpDownLtbYearly.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -385,7 +408,7 @@
             0,
             0});
             this.numericUpDownLtbYearly.Name = "numericUpDownLtbYearly";
-            this.numericUpDownLtbYearly.Size = new System.Drawing.Size(148, 22);
+            this.numericUpDownLtbYearly.Size = new System.Drawing.Size(111, 20);
             this.numericUpDownLtbYearly.TabIndex = 24;
             this.numericUpDownLtbYearly.Value = new decimal(new int[] {
             1,
@@ -395,8 +418,7 @@
             // 
             // numericUpDownLtbMonthly
             // 
-            this.numericUpDownLtbMonthly.Location = new System.Drawing.Point(351, 437);
-            this.numericUpDownLtbMonthly.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDownLtbMonthly.Location = new System.Drawing.Point(263, 355);
             this.numericUpDownLtbMonthly.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -408,7 +430,7 @@
             0,
             0});
             this.numericUpDownLtbMonthly.Name = "numericUpDownLtbMonthly";
-            this.numericUpDownLtbMonthly.Size = new System.Drawing.Size(148, 22);
+            this.numericUpDownLtbMonthly.Size = new System.Drawing.Size(111, 20);
             this.numericUpDownLtbMonthly.TabIndex = 23;
             this.numericUpDownLtbMonthly.Value = new decimal(new int[] {
             1,
@@ -418,8 +440,7 @@
             // 
             // numericUpDownLtbWeekly
             // 
-            this.numericUpDownLtbWeekly.Location = new System.Drawing.Point(351, 405);
-            this.numericUpDownLtbWeekly.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDownLtbWeekly.Location = new System.Drawing.Point(263, 329);
             this.numericUpDownLtbWeekly.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -431,7 +452,7 @@
             0,
             0});
             this.numericUpDownLtbWeekly.Name = "numericUpDownLtbWeekly";
-            this.numericUpDownLtbWeekly.Size = new System.Drawing.Size(148, 22);
+            this.numericUpDownLtbWeekly.Size = new System.Drawing.Size(111, 20);
             this.numericUpDownLtbWeekly.TabIndex = 22;
             this.numericUpDownLtbWeekly.Value = new decimal(new int[] {
             1,
@@ -443,10 +464,9 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(40, 471);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Location = new System.Drawing.Point(30, 383);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(275, 17);
+            this.label14.Size = new System.Drawing.Size(205, 13);
             this.label14.TabIndex = 21;
             this.label14.Text = "Amount of yearly backups to keep (years):";
             // 
@@ -454,10 +474,9 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(40, 439);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Location = new System.Drawing.Point(30, 357);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(297, 17);
+            this.label13.Size = new System.Drawing.Size(223, 13);
             this.label13.TabIndex = 20;
             this.label13.Text = "Amount of monthly backups to keep (months):";
             // 
@@ -465,10 +484,9 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(40, 407);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(30, 331);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(283, 17);
+            this.label12.Size = new System.Drawing.Size(217, 13);
             this.label12.TabIndex = 19;
             this.label12.Text = "Amount of weekly backups to keep (weeks):";
             // 
@@ -476,10 +494,9 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(11, 319);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(8, 259);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(818, 51);
+            this.label11.Size = new System.Drawing.Size(612, 39);
             this.label11.TabIndex = 18;
             this.label11.Text = resources.GetString("label11.Text");
             // 
@@ -487,10 +504,9 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(8, 289);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(6, 235);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(209, 25);
+            this.label10.Size = new System.Drawing.Size(170, 20);
             this.label10.TabIndex = 17;
             this.label10.Text = "Long-Term-Backups";
             // 
@@ -498,10 +514,9 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(8, 161);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(6, 131);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(270, 25);
+            this.label9.Size = new System.Drawing.Size(221, 20);
             this.label9.TabIndex = 16;
             this.label9.Text = "Advanced Backup-Options";
             // 
@@ -509,20 +524,18 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 8);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(6, 6);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(249, 25);
+            this.label8.Size = new System.Drawing.Size(206, 20);
             this.label8.TabIndex = 15;
             this.label8.Text = "General Backup-Options";
             // 
             // checkBoxEnableLongTermBackups
             // 
             this.checkBoxEnableLongTermBackups.AutoSize = true;
-            this.checkBoxEnableLongTermBackups.Location = new System.Drawing.Point(16, 377);
-            this.checkBoxEnableLongTermBackups.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxEnableLongTermBackups.Location = new System.Drawing.Point(12, 306);
             this.checkBoxEnableLongTermBackups.Name = "checkBoxEnableLongTermBackups";
-            this.checkBoxEnableLongTermBackups.Size = new System.Drawing.Size(207, 21);
+            this.checkBoxEnableLongTermBackups.Size = new System.Drawing.Size(158, 17);
             this.checkBoxEnableLongTermBackups.TabIndex = 14;
             this.checkBoxEnableLongTermBackups.Text = "Enable Long-Term-Backups";
             this.checkBoxEnableLongTermBackups.UseVisualStyleBackColor = true;
@@ -531,57 +544,52 @@
             // checkBoxBackupOnDbClose
             // 
             this.checkBoxBackupOnDbClose.AutoSize = true;
-            this.checkBoxBackupOnDbClose.Location = new System.Drawing.Point(13, 218);
-            this.checkBoxBackupOnDbClose.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxBackupOnDbClose.Location = new System.Drawing.Point(10, 177);
             this.checkBoxBackupOnDbClose.Name = "checkBoxBackupOnDbClose";
-            this.checkBoxBackupOnDbClose.Size = new System.Drawing.Size(592, 21);
+            this.checkBoxBackupOnDbClose.Size = new System.Drawing.Size(612, 17);
             this.checkBoxBackupOnDbClose.TabIndex = 13;
-            this.checkBoxBackupOnDbClose.Text = "Backup Database when it\'s being closed or when the KeePass application is being c" +
-    "losed";
+            this.checkBoxBackupOnDbClose.Text = "Backup Database on Close (new backup is created whenever the database is closed/l" +
+    "ocked; also when KeePass is closed)";
             this.checkBoxBackupOnDbClose.UseVisualStyleBackColor = true;
             // 
             // textBoxBackupFileEnding
             // 
-            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(410, 189);
-            this.textBoxBackupFileEnding.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxBackupFileEnding.Location = new System.Drawing.Point(317, 154);
             this.textBoxBackupFileEnding.Name = "textBoxBackupFileEnding";
-            this.textBoxBackupFileEnding.Size = new System.Drawing.Size(192, 22);
+            this.textBoxBackupFileEnding.Size = new System.Drawing.Size(145, 20);
             this.textBoxBackupFileEnding.TabIndex = 12;
             // 
             // checkBoxCustomFileEnding
             // 
             this.checkBoxCustomFileEnding.AutoSize = true;
-            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(13, 190);
-            this.checkBoxCustomFileEnding.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxCustomFileEnding.Location = new System.Drawing.Point(10, 154);
             this.checkBoxCustomFileEnding.Name = "checkBoxCustomFileEnding";
-            this.checkBoxCustomFileEnding.Size = new System.Drawing.Size(398, 21);
+            this.checkBoxCustomFileEnding.Size = new System.Drawing.Size(274, 17);
             this.checkBoxCustomFileEnding.TabIndex = 11;
-            this.checkBoxCustomFileEnding.Text = "Always use custom file-ending (extension) for backup-files:";
+            this.checkBoxCustomFileEnding.Text = "Use custom File-Ending (Extension) for Backup-Files:";
             this.checkBoxCustomFileEnding.UseVisualStyleBackColor = true;
             this.checkBoxCustomFileEnding.CheckedChanged += new System.EventHandler(this.CheckBoxCustomFileEnding_CheckedChanged);
             // 
             // checkBoxAutoBackup
             // 
             this.checkBoxAutoBackup.AutoSize = true;
-            this.checkBoxAutoBackup.Location = new System.Drawing.Point(13, 93);
-            this.checkBoxAutoBackup.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxAutoBackup.Location = new System.Drawing.Point(10, 76);
             this.checkBoxAutoBackup.Name = "checkBoxAutoBackup";
-            this.checkBoxAutoBackup.Size = new System.Drawing.Size(569, 21);
+            this.checkBoxAutoBackup.Size = new System.Drawing.Size(452, 17);
             this.checkBoxAutoBackup.TabIndex = 10;
-            this.checkBoxAutoBackup.Text = "Auto-Backup Database (backup will be created, everytime the dabase is being saved" +
-    ")";
+            this.checkBoxAutoBackup.Text = "Backup Database on Save (new backup is created, whenever the dabase is being save" +
+    "d)";
             this.checkBoxAutoBackup.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseRecycleBin
             // 
             this.checkBoxUseRecycleBin.AutoSize = true;
-            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(13, 65);
-            this.checkBoxUseRecycleBin.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxUseRecycleBin.Location = new System.Drawing.Point(10, 53);
             this.checkBoxUseRecycleBin.Name = "checkBoxUseRecycleBin";
-            this.checkBoxUseRecycleBin.Size = new System.Drawing.Size(651, 21);
+            this.checkBoxUseRecycleBin.Size = new System.Drawing.Size(586, 17);
             this.checkBoxUseRecycleBin.TabIndex = 8;
-            this.checkBoxUseRecycleBin.Text = "Use Recycle Bin (instead of completeley removing old backup files, they will be m" +
-    "oved to the trash)";
+            this.checkBoxUseRecycleBin.Text = "Use Recycle Bin (enabling this option moves cleaned up backup files to the trash " +
+    "instead of permanently deleting them)";
             this.checkBoxUseRecycleBin.UseVisualStyleBackColor = true;
             // 
             // tabPage3
@@ -593,10 +601,9 @@
             this.tabPage3.Controls.Add(this.linkLabelReportBug);
             this.tabPage3.Controls.Add(this.labelVersion);
             this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(859, 508);
+            this.tabPage3.Size = new System.Drawing.Size(642, 410);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "About";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -606,10 +613,9 @@
             this.linkLabelRessourcesOokiDialogsGitHub.ActiveLinkColor = System.Drawing.Color.DarkRed;
             this.linkLabelRessourcesOokiDialogsGitHub.AutoSize = true;
             this.linkLabelRessourcesOokiDialogsGitHub.LinkColor = System.Drawing.Color.DarkRed;
-            this.linkLabelRessourcesOokiDialogsGitHub.Location = new System.Drawing.Point(11, 204);
-            this.linkLabelRessourcesOokiDialogsGitHub.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabelRessourcesOokiDialogsGitHub.Location = new System.Drawing.Point(8, 166);
             this.linkLabelRessourcesOokiDialogsGitHub.Name = "linkLabelRessourcesOokiDialogsGitHub";
-            this.linkLabelRessourcesOokiDialogsGitHub.Size = new System.Drawing.Size(52, 17);
+            this.linkLabelRessourcesOokiDialogsGitHub.Size = new System.Drawing.Size(40, 13);
             this.linkLabelRessourcesOokiDialogsGitHub.TabIndex = 5;
             this.linkLabelRessourcesOokiDialogsGitHub.TabStop = true;
             this.linkLabelRessourcesOokiDialogsGitHub.Text = "GitHub";
@@ -619,10 +625,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(9, 183);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 12, 4, 0);
+            this.label7.Location = new System.Drawing.Point(7, 149);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(515, 20);
+            this.label7.Size = new System.Drawing.Size(435, 17);
             this.label7.TabIndex = 4;
             this.label7.Text = "Ookii.Dialogs.WinForms - Copyright (c) Sven Groot (Ookii.org) 2009";
             // 
@@ -630,10 +636,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(8, 146);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 12, 4, 0);
+            this.label6.Location = new System.Drawing.Point(6, 119);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(472, 25);
+            this.label6.Size = new System.Drawing.Size(389, 20);
             this.label6.TabIndex = 3;
             this.label6.Text = "Open source software used in KPSimpleBackup";
             // 
@@ -642,10 +648,9 @@
             this.linkLabelReportBug.ActiveLinkColor = System.Drawing.Color.DarkRed;
             this.linkLabelReportBug.AutoSize = true;
             this.linkLabelReportBug.LinkColor = System.Drawing.Color.DarkRed;
-            this.linkLabelReportBug.Location = new System.Drawing.Point(11, 79);
-            this.linkLabelReportBug.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabelReportBug.Location = new System.Drawing.Point(8, 64);
             this.linkLabelReportBug.Name = "linkLabelReportBug";
-            this.linkLabelReportBug.Size = new System.Drawing.Size(80, 17);
+            this.linkLabelReportBug.Size = new System.Drawing.Size(61, 13);
             this.linkLabelReportBug.TabIndex = 2;
             this.linkLabelReportBug.TabStop = true;
             this.linkLabelReportBug.Text = "Report Bug";
@@ -654,10 +659,9 @@
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(11, 48);
-            this.labelVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelVersion.Location = new System.Drawing.Point(8, 39);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(56, 17);
+            this.labelVersion.Size = new System.Drawing.Size(42, 13);
             this.labelVersion.TabIndex = 1;
             this.labelVersion.Text = "Version";
             // 
@@ -665,65 +669,21 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(4, 12);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 12, 4, 0);
+            this.label4.Location = new System.Drawing.Point(3, 10);
+            this.label4.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(237, 31);
+            this.label4.Size = new System.Drawing.Size(191, 25);
             this.label4.TabIndex = 0;
             this.label4.Text = "KPSimpleBackup";
             // 
-            // buttonRelativeBackupPathAdd
-            // 
-            this.buttonRelativeBackupPathAdd.Enabled = false;
-            this.buttonRelativeBackupPathAdd.Location = new System.Drawing.Point(311, 247);
-            this.buttonRelativeBackupPathAdd.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonRelativeBackupPathAdd.Name = "buttonRelativeBackupPathAdd";
-            this.buttonRelativeBackupPathAdd.Size = new System.Drawing.Size(188, 26);
-            this.buttonRelativeBackupPathAdd.TabIndex = 25;
-            this.buttonRelativeBackupPathAdd.Text = "Add relative backup path";
-            this.buttonRelativeBackupPathAdd.UseVisualStyleBackColor = true;
-            this.buttonRelativeBackupPathAdd.Click += new System.EventHandler(this.buttonRelativeBackupPathAdd_Click);
-            // 
-            // buttonRelativeBackupPathHelp
-            // 
-            this.buttonRelativeBackupPathHelp.Location = new System.Drawing.Point(507, 247);
-            this.buttonRelativeBackupPathHelp.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonRelativeBackupPathHelp.Name = "buttonRelativeBackupPathHelp";
-            this.buttonRelativeBackupPathHelp.Size = new System.Drawing.Size(29, 26);
-            this.buttonRelativeBackupPathHelp.TabIndex = 26;
-            this.buttonRelativeBackupPathHelp.Text = "?";
-            this.buttonRelativeBackupPathHelp.UseVisualStyleBackColor = true;
-            this.buttonRelativeBackupPathHelp.Click += new System.EventHandler(this.buttonRelativeBackupPathHelp_Click);
-            // 
-            // textBoxRelativeBackupPath
-            // 
-            this.textBoxRelativeBackupPath.Location = new System.Drawing.Point(13, 249);
-            this.textBoxRelativeBackupPath.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxRelativeBackupPath.Name = "textBoxRelativeBackupPath";
-            this.textBoxRelativeBackupPath.Size = new System.Drawing.Size(290, 22);
-            this.textBoxRelativeBackupPath.TabIndex = 27;
-            this.textBoxRelativeBackupPath.TextChanged += new System.EventHandler(this.textBoxRelativeBackupPath_TextChanged);
-            // 
-            // checkBoxShowBackupFailedWarning
-            // 
-            this.checkBoxShowBackupFailedWarning.AutoSize = true;
-            this.checkBoxShowBackupFailedWarning.Location = new System.Drawing.Point(13, 122);
-            this.checkBoxShowBackupFailedWarning.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBoxShowBackupFailedWarning.Name = "checkBoxShowBackupFailedWarning";
-            this.checkBoxShowBackupFailedWarning.Size = new System.Drawing.Size(544, 21);
-            this.checkBoxShowBackupFailedWarning.TabIndex = 28;
-            this.checkBoxShowBackupFailedWarning.Text = "Show a popup-warning, if the backup fails or problems occured during the backup";
-            this.checkBoxShowBackupFailedWarning.UseVisualStyleBackColor = true;
-            // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 602);
+            this.ClientSize = new System.Drawing.Size(674, 489);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
