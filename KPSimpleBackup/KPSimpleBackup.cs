@@ -56,7 +56,7 @@ namespace KPSimpleBackup
         {
             get
             {
-                return "https://raw.githubusercontent.com/marvinweber/KPSimpleBackup/master/kpsimplebackup.version";
+                return "https://raw.githubusercontent.com/marvinweber/KPSimpleBackup/main/kpsimplebackup.version";
             }
         }
 
