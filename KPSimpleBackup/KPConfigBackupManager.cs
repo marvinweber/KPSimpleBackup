@@ -8,6 +8,9 @@ namespace KPSimpleBackup
 {
     public class KPConfigBackupManager : BackupManager
     {
+        private const string USER_BACKUP_SUFFIX = "backup-user-config_";
+        private const string APPLICATION_BACKUP_SUFFIX = "backup-application-config_";
+
         protected override string ManagerName { get { return "KeePassConfigBackup"; } }
 
         public KPConfigBackupManager(PwDatabase database) : base(database)
@@ -35,14 +38,32 @@ namespace KPSimpleBackup
         {
             try
             {
-                CopyConfig(GetUserConfigPath(), "user-config");
-                CopyConfig(GetApplicationConfigPath(), "application-config");
+                CopyConfig(GetUserConfigPath(), USER_BACKUP_SUFFIX);
+                CopyConfig(GetApplicationConfigPath(), APPLICATION_BACKUP_SUFFIX);
             }
             catch (Exception e)
             {
                 pluginLogger.Log("Could not backup KeePass configuration file!", KeePassLib.Interfaces.LogStatusType.Error);
                 pluginLogger.Log(e.ToString(), KeePassLib.Interfaces.LogStatusType.AdditionalInfo);
             }
+        }
+
+        /// <summary>
+        /// Remove old/outdated config backups.
+        /// </summary>
+        protected override void Cleanup()
+        {
+            base.Cleanup();
+
+            string applicationConfigName = Path.GetFileName(GetApplicationConfigPath());
+            string userConfigName = Path.GetFileName(GetUserConfigPath());
+
+            string applicationDeletePattern = applicationConfigName + "." + APPLICATION_BACKUP_SUFFIX + "*";
+            string userDeletePattern = userConfigName + "." + USER_BACKUP_SUFFIX + "*";
+
+            string dbPath = database.IOConnectionInfo.Path;
+            CleanupManager.Cleanup(basePath, applicationDeletePattern, dbPath);
+            CleanupManager.Cleanup(basePath, userDeletePattern, dbPath);
         }
 
         /// <summary>
@@ -88,8 +109,9 @@ namespace KPSimpleBackup
                 return;
             }
 
+            string time = GenerateUserConfiguredTimeString();
             string configFileName = Path.GetFileName(configPath);
-            string backupConfigPath = FILE_PREFIX + basePath + configFileName + ".backup-" + suffix;
+            string backupConfigPath = FILE_PREFIX + basePath + configFileName + "." + suffix + time;
             backupConfigPath = new Uri(backupConfigPath).LocalPath;
 
             pluginLogger.Log("Copy " + configPath + " to " + backupConfigPath, KeePassLib.Interfaces.LogStatusType.Info);

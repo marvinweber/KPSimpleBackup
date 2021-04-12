@@ -79,11 +79,10 @@ namespace KPSimpleBackup
             base.Cleanup();
 
             string searchPattern = dbFileName + "_*" + dbFileExtension;
-            RecycleOption recycleOption = config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
 
-            CleanupManager.Cleanup(basePathWeekly, searchPattern, database.IOConnectionInfo.Path, config.LtbWeeklyAmount, recycleOption);
-            CleanupManager.Cleanup(basePathMonthly, searchPattern, database.IOConnectionInfo.Path, config.LtbMonthlyAmount, recycleOption);
-            CleanupManager.Cleanup(basePathYearly, searchPattern, database.IOConnectionInfo.Path, config.LtbYearlyAmount, recycleOption);
+            CleanupManager.Cleanup(basePathWeekly, searchPattern, database.IOConnectionInfo.Path, config.LtbWeeklyAmount);
+            CleanupManager.Cleanup(basePathMonthly, searchPattern, database.IOConnectionInfo.Path, config.LtbMonthlyAmount);
+            CleanupManager.Cleanup(basePathYearly, searchPattern, database.IOConnectionInfo.Path, config.LtbYearlyAmount);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace KPSimpleBackup
 
             BackupManager.SetConfig(m_config);
             BackupManager.SetPluginLogger(m_PluginLogger);
+            CleanupManager.config = m_config;
 
             // add handler for KeePass events this plugin reacts to (file saving, closing, etc.)
             m_host.MainWindow.FileSaving += this.OnDatabaseSavingPreAction;

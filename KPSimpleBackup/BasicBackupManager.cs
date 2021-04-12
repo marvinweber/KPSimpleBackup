@@ -10,8 +10,6 @@ namespace KPSimpleBackup
     {
         protected override string ManagerName { get { return "BasicBackup"; } }
 
-        private string time;
-
         /// <summary>
         /// Path to the last backup file of the database that has
         /// been created by this backup manager.
@@ -20,8 +18,7 @@ namespace KPSimpleBackup
 
         public BasicBackupManager(PwDatabase database) : base(database)
         {
-            string dateTimeFormat = config.DateFormat;
-            time = DateTime.Now.ToString(dateTimeFormat);
+            //
         }
 
         protected override void PreBackup()
@@ -40,6 +37,7 @@ namespace KPSimpleBackup
 
         protected override void Backup()
         {
+            string time = GenerateUserConfiguredTimeString();
             string path = FILE_PREFIX + basePath + dbFileName + "_" + time + dbFileExtension;
             SavePwDatabaseToPath(path);
             lastBackupFilePath = path;
@@ -50,8 +48,7 @@ namespace KPSimpleBackup
             base.Cleanup();
 
             string cleanupSearchPattern = dbFileName + "_*" + dbFileExtension;
-            RecycleOption recycleOption = config.UseRecycleBinDeletedBackups ? RecycleOption.SendToRecycleBin : RecycleOption.DeletePermanently;
-            CleanupManager.Cleanup(basePath, cleanupSearchPattern, database.IOConnectionInfo.Path, (int) config.FileAmountToKeep, recycleOption);
+            CleanupManager.Cleanup(basePath, cleanupSearchPattern, database.IOConnectionInfo.Path);
         }
     }
 }

@@ -192,6 +192,17 @@ namespace KPSimpleBackup
         }
 
         /// <summary>
+        /// Generate a timestamp (as string) based on the format defined
+        /// by the user.
+        /// </summary>
+        /// <returns>Time formatted by user preference.</returns>
+        protected string GenerateUserConfiguredTimeString()
+        {
+            string dateTimeFormat = config.DateFormat;
+            return DateTime.Now.ToString(dateTimeFormat);
+        }
+
+        /// <summary>
         /// Generate the file extension that should be used.
         /// If no custom extension is set, the current db-extension
         /// is used, as a fallback the "standard" file extension
