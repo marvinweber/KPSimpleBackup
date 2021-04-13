@@ -265,7 +265,7 @@
             // 
             this.panel4.Controls.Add(this.checkBoxBackupKeePassConfig);
             this.panel4.Location = new System.Drawing.Point(176, 328);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(448, 60);
             this.panel4.TabIndex = 9;
@@ -274,7 +274,7 @@
             // 
             this.checkBoxBackupKeePassConfig.AutoSize = true;
             this.checkBoxBackupKeePassConfig.Location = new System.Drawing.Point(4, 2);
-            this.checkBoxBackupKeePassConfig.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxBackupKeePassConfig.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBackupKeePassConfig.Name = "checkBoxBackupKeePassConfig";
             this.checkBoxBackupKeePassConfig.Size = new System.Drawing.Size(289, 17);
             this.checkBoxBackupKeePassConfig.TabIndex = 0;
@@ -318,7 +318,7 @@
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(642, 410);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
@@ -349,7 +349,7 @@
             this.tabPage2.Controls.Add(this.checkBoxUseDbName);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(642, 410);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced";
@@ -575,10 +575,10 @@
             this.checkBoxAutoBackup.AutoSize = true;
             this.checkBoxAutoBackup.Location = new System.Drawing.Point(10, 76);
             this.checkBoxAutoBackup.Name = "checkBoxAutoBackup";
-            this.checkBoxAutoBackup.Size = new System.Drawing.Size(452, 17);
+            this.checkBoxAutoBackup.Size = new System.Drawing.Size(461, 17);
             this.checkBoxAutoBackup.TabIndex = 10;
-            this.checkBoxAutoBackup.Text = "Backup Database on Save (new backup is created, whenever the dabase is being save" +
-    "d)";
+            this.checkBoxAutoBackup.Text = "Backup Database on Save (new backup is created, whenever the database is being sa" +
+    "ved)";
             this.checkBoxAutoBackup.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseRecycleBin
