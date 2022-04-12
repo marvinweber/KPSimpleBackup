@@ -4,3 +4,10 @@
 
 # NuGet packages folder
 /packages
+
+# VsCode
+.vscode
+
+# Docs (& Python)
+venv
+site

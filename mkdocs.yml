@@ -1,0 +1,37 @@
+site_name: KPSimpleBackup
+site_url: https://marvinweber.github.io/KPSimpleBackup/
+repo_url: https://github.com/marvinweber/KPSimpleBackup/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tabs
+
+plugins:
+  - search
+
+nav:
+  - 'Home':
+    - index.md
+  - 'User Guide':
+    - user/installation.md
+    - user/configuration.md
+  - 'Developer Guide':
+    - dev/development.md
+
+markdown_extensions:
+  - pymdownx.critic
+
+extra:
+  version:
+    provider: mike
