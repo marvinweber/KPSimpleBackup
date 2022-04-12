@@ -15,4 +15,5 @@ jobs:
           python-version: 3.x
       - run: pip install mkdocs-material mike
       - run: git config user.name "GitHub Actions Bot"
+      - run: git config user.email "github-actions-bot@marvinweber.net"
       - run: mike deploy --force --update-alias $(cat kpsimplebackup.version | grep KPSimpleBackup | sed -r "s/KPSimpleBackup\:([0-9]+)\.([0-9]+)\.([0-9])/\1.\2/") latest
