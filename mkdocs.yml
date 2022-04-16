@@ -23,6 +23,8 @@ plugins:
 nav:
   - 'Home':
     - index.md
+    - disclaimer.md
+    - changelog.md
   - 'User Guide':
     - user/installation.md
     - user/configuration.md
