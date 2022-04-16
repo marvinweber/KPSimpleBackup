@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://marvinweber.github.io/KPSimpleBackup/1.4/</loc>
+         <lastmod>2022-04-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://marvinweber.github.io/KPSimpleBackup/1.4/changelog/</loc>
+         <lastmod>2022-04-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://marvinweber.github.io/KPSimpleBackup/1.4/disclaimer/</loc>
+         <lastmod>2022-04-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://marvinweber.github.io/KPSimpleBackup/1.4/dev/development/</loc>
+         <lastmod>2022-04-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://marvinweber.github.io/KPSimpleBackup/1.4/user/configuration/</loc>
+         <lastmod>2022-04-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://marvinweber.github.io/KPSimpleBackup/1.4/user/installation/</loc>
+         <lastmod>2022-04-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
