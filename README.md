@@ -11,6 +11,18 @@ More information about installation, setup, etc. in the [KPSimpleBackup Wiki](ht
 
 ## Installation & Documentation
 * [Installation instructions](https://github.com/marvinweber/KPSimpleBackup/wiki/Installation)  
+#### Chocolatey 📦 
+Or you can [use Chocolatey to install](https://community.chocolatey.org/packages/keepass-kp-simple-database-backup#install) it in a more automated manner:
+
+```
+choco install keepass-kp-simple-database-backup
+```
+
+To [upgrade KeePass Plugin Simple Database Backup](https://community.chocolatey.org/packages/keepass-kp-simple-database-backup#upgrade) to the [latest release version](https://community.chocolatey.org/packages/keepass-kp-simple-database-backup#versionhistory) for enjoying the newest features, run the following command from the command line or from PowerShell:
+
+```
+choco upgrade keepass-kp-simple-database-backup
+```
 * [Usage/ Settings instructions / Documentation](https://github.com/marvinweber/KPSimpleBackup/wiki/User-Documentation).
 
 ## Credits
